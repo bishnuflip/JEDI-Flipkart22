@@ -1,2 +1,4 @@
-package com.flipkart.bean;public class UserBean {
+package com.flipkart.bean;
+
+public class UserBean {
 }
