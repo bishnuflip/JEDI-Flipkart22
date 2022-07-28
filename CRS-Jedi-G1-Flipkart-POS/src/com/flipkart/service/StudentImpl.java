@@ -1,9 +1,12 @@
 package com.flipkart.service;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentCourseChoice
+import com.flipkart.database.dbConst;
+
 public class StudentImpl implements StudentInterface {
 
 	@Override
@@ -38,9 +41,8 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void displayCourseCatalog() {
-		for(course : dbConst.courses)
-		{
-			course.viewDetails();
+		for(int key: dbConst.courses.keySet()) {
+			dbConst.courses.get(key).toString();
 		}
 		// TODO Auto-generated method stub
 
@@ -57,8 +59,10 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public Boolean studentAlreadyRegistered(int studentId) {
-		// TODO Auto-generated method stub
-		return null;
+		if(dbConst.students.containsKey(studentId))
+			return true;
+		else
+			return false;
 	}
 
 	@Override
@@ -73,11 +77,13 @@ public class StudentImpl implements StudentInterface {
 		return null;
 	}
 
+
+
 	@Override
-//	public Boolean isStudentRegistered(int studentId) {
-//		// TODO Auto-generated method stub
-//		return null;
-//	}
+	public Boolean isStudentRegistered(int studentId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 	@Override
 	public boolean isSemesterRegistrationDone(int studentId) {
