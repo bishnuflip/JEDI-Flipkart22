@@ -4,12 +4,13 @@ import java.util.ArrayList;
 
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentCourseChoice;
+import com.flipkart.database.dbConst;
 
 public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void addStudentdata(Student student) {
-		dbConst.students.add(student);
+		dbConst.students.put(student.getUserId(), student);
 		// TODO Auto-generated method stub
 
 	}
