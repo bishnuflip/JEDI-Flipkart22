@@ -10,6 +10,7 @@ import com.flipkart.database.dbConst;
 
 
 public class AdminImpl implements AdminInterface {
+
 	@Override
 	public void activateGradeCard() {
 		// TODO Auto-generated method stub
