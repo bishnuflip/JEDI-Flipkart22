@@ -11,11 +11,11 @@ import com.flipkart.bean.Student;
 public class AdminImpl implements AdminInterface {
 	HashMap<Integer,Professor> professors = new HashMap<Integer,Professor>();
 	HashMap<Integer,Student> students = new HashMap<Integer,Student>();
-	HashMap<Integer,Course> courses = new HashMap<Integer,Course>();
+	static HashMap<Integer,Course> courses = new HashMap<Integer,Course>();
 	@Override
 	public void activateGradeCard() {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	@Override
