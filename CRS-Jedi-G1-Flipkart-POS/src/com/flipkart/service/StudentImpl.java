@@ -3,27 +3,31 @@ package com.flipkart.service;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Student;
-import com.flipkart.bean.StudentCourseChoice;
-
+import com.flipkart.bean.StudentCourseChoice
 public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void addStudentdata(Student student) {
-		dbConst.students.add(student);
+		int id = UtilityService.getId();
+		student.setStudentId(id);
+		AuthorizationService.addUser(id, student);
+
+		dbConst.students.put(id, student);
+
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public ArrayList<Student> viewStudentData() {
+		List<Student> students = new ArrayList<Student>();
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
 	public Student viewStudentDetails(int studentId) {
-		// TODO Auto-generated method stub
-		return null;
+		return dbConst.students.get(studentId);
 	}
 
 	@Override
@@ -34,12 +38,19 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void displayCourseCatalog() {
+		for(course : dbConst.courses)
+		{
+			course.viewDetails();
+		}
 		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void displayGradeCard(int studentId) {
+		Student student = dbConst.students.get(studentId);
+		GradeCard gradeCard = student.fetchGradeCard();
+		gradeCard.viewGradeCard();
 		// TODO Auto-generated method stub
 
 	}
@@ -63,10 +74,10 @@ public class StudentImpl implements StudentInterface {
 	}
 
 	@Override
-	public Boolean isStudentRegistered(int studentId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
+//	public Boolean isStudentRegistered(int studentId) {
+//		// TODO Auto-generated method stub
+//		return null;
+//	}
 
 	@Override
 	public boolean isSemesterRegistrationDone(int studentId) {
