@@ -1,16 +1,20 @@
 package com.flipkart.service;
 
+import java.util.List;
+import com.flipkart.bean.Course;
+import com.flipkart.bean.Student;
+
 public interface ProfessorInterface {
 	
 	/**
 	 * Method to view all courses
 	 */
-	public void viewAllCourses();
+	public List<Course> viewAllCourses();
 	
 	/**
 	 * Method to view list of enrolled Students
 	 */
-	public void viewEnrolledStudents();
+	public List<Student> viewEnrolledStudents(int professorId);
 	
 	/**
 	 * Method to get Courses by Professor Id
@@ -26,6 +30,6 @@ public interface ProfessorInterface {
 	 * @param courseId the course id
      * @param grade the grade to be assigned
 	 */
-	public void assignGrade(int studentId, int courseId, int semesterNumber);
+	public void assignGrade(int studentId, int courseId, int semesterNumber,int grade);
 	
 }
