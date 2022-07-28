@@ -9,6 +9,7 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void addStudentdata(Student student) {
+		dbConst.students.add(student);
 		// TODO Auto-generated method stub
 
 	}
