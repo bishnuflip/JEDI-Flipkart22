@@ -19,7 +19,7 @@ public class AuthorizationService {
 	}
 	public int authorize(Integer userId, String password) {
 		// TODO Auto-generated method stub
-		boolean success = credentials.containsKey(userId) && credentials.get(userId).getPasswordHash() == password;
+		boolean success = credentials.containsKey(userId) && credentials.get(userId).getPasswordHash().equals(password);
 		if(!success) return -1;
 		int role = credentials.get(userId).getRole();
 		return role;
