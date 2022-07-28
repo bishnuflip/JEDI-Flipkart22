@@ -47,7 +47,7 @@ public class CRSStudentMenu {
 				System.out.println("View Grade Card");
 				System.out.println("Enter Student Id");
 				int studentId = scanner.nextInt();
-				studentImpl.displayGradeCard(studentId)
+				studentImpl.displayGradeCard(studentId);
 				break;
 			}
 			case 5:{

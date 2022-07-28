@@ -19,17 +19,17 @@ public class CRSApplication {
     	admin.setRole(1);
     	AuthorizationService.addUser(1,admin);
     	
-    	User prof = new User();
-    	prof.setUserId(2);
-    	prof.setPasswordHash("prof");
-    	prof.setRole(2);
-    	AuthorizationService.addUser(2, prof);
-    	
     	User student = new User();
+    	student.setUserId(2);
+    	student.setPasswordHash("student");
+    	student.setRole(2);
+    	AuthorizationService.addUser(2, student);
+    	
+    	User prof = new User();
     	prof.setUserId(3);
-    	prof.setPasswordHash("student");
+    	prof.setPasswordHash("prof");
     	prof.setRole(3);
-    	AuthorizationService.addUser(3, student);
+    	AuthorizationService.addUser(3, prof);
     	startApplication();
         
     }

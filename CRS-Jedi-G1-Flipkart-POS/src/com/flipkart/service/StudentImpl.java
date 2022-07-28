@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.flipkart.bean.Student;
-import com.flipkart.bean.StudentCourseChoice
+import com.flipkart.bean.StudentCourseChoice;
 import com.flipkart.database.dbConst;
 
 public class StudentImpl implements StudentInterface {
@@ -76,8 +76,6 @@ public class StudentImpl implements StudentInterface {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-
 
 	@Override
 	public Boolean isStudentRegistered(int studentId) {
