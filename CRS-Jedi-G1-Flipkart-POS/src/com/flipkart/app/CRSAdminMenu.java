@@ -92,10 +92,10 @@ public class CRSAdminMenu {
 			}
 			case 5:{
 				Professor professor = new Professor();
-				System.out.print("Enter username: ");
-				String username = scanner.next();
-				professor.setUsername(username);
-				System.out.print("Enter password: ");
+//				System.out.println("Enter username: ");
+//				String username = scanner.next();
+//				professor.setUsername(username);
+				System.out.println("Enter password: ");
 				String passwordHash = scanner.next();
 				professor.setPasswordHash(passwordHash);
 				System.out.print("Enter name: ");
