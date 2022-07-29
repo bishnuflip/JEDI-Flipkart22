@@ -1,7 +1,8 @@
 package com.flipkart.service;
 
-public class GradeCard {
+import com.flipkart.bean.GradeCard;
 
+public class GradeCardImpl {
     public GradeCard viewGradeCard(int studentId) {
         //TODO
         return null;

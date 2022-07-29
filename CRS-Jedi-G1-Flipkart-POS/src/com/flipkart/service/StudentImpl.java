@@ -52,7 +52,7 @@ public class StudentImpl implements StudentInterface {
 	@Override
 	public void displayGradeCard(int studentId) {
 		//Student student = dbConst.students.get(studentId);
-		GradeCard gradeCard = new GradeCard();
+		GradeCardImpl gradeCard = new GradeCardImpl();
 		gradeCard.viewGradeCard(studentId);
 		// TODO Auto-generated method stub
 
