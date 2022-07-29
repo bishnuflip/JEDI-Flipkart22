@@ -1,2 +1,7 @@
-package com.flipkart.service;public interface GradeCardInterface {
+package com.flipkart.service;
+
+public interface GradeCardInterface {
+
+
+
 }
