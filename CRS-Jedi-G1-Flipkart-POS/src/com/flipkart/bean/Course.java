@@ -73,6 +73,9 @@ public class Course {
 	public void setCatalogId(int catalogId) {
 		this.catalogId = catalogId;
 	}
-	
 
+	@Override
+	public String toString() {
+		return "Course Name: " + this.getName() + "\nCourse  id: " + this.getCourseId() + "\nCourse Fee: " + this.getCourseFee();
+	}
 }
