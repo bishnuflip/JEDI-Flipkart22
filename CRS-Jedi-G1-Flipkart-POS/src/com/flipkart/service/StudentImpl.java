@@ -51,9 +51,9 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void displayGradeCard(int studentId) {
-		Student student = dbConst.students.get(studentId);
-		GradeCard gradeCard = student.fetchGradeCard();
-		gradeCard.viewGradeCard();
+		//Student student = dbConst.students.get(studentId);
+		GradeCard gradeCard = new GradeCard();
+		gradeCard.viewGradeCard(studentId);
 		// TODO Auto-generated method stub
 
 	}
