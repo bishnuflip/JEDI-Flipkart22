@@ -9,27 +9,27 @@ import com.flipkart.bean.User;
 import com.flipkart.service.AuthorizationService;
 
 public class CRSApplication {
-	static HashMap<Integer, Professor> professors = new HashMap<Integer, Professor>();
-	static HashMap<Integer, Student> students = new HashMap<Integer, Student>();
+	static int userId = -1;
+	
 	
     public static void main(String[] args) {
-    	User admin = new User();
-    	admin.setUserId(1);
-    	admin.setPasswordHash("admin");
-    	admin.setRole(1);
-    	AuthorizationService.addUser(1,admin);
-    	
-    	User student = new User();
-    	student.setUserId(2);
-    	student.setPasswordHash("student");
-    	student.setRole(2);
-    	AuthorizationService.addUser(2, student);
-    	
-    	User prof = new User();
-    	prof.setUserId(3);
-    	prof.setPasswordHash("prof");
-    	prof.setRole(3);
-    	AuthorizationService.addUser(3, prof);
+//    	User admin = new User();
+//    	admin.setUserId(1);
+//    	admin.setPasswordHash("admin");
+//    	admin.setRole(1);
+//    	AuthorizationService.addUser(1,admin);
+//    	
+//    	User student = new User();
+//    	student.setUserId(2);
+//    	student.setPasswordHash("student");
+//    	student.setRole(2);
+//    	AuthorizationService.addUser(2, student);
+//    	
+//    	User prof = new User();
+//    	prof.setUserId(3);
+//    	prof.setPasswordHash("prof");
+//    	prof.setRole(3);
+//    	AuthorizationService.addUser(3, prof);
     	startApplication();
         
     }
@@ -54,10 +54,11 @@ public class CRSApplication {
 				case 1: {
 							System.out.println("Enter your Login details");
 					  		System.out.print("Enter UserId: ");
-					  		int userId = scanner.nextInt();
+					  		String userName = scanner.next();
+					  		
 					  		System.out.print("Enter Password: ");
 					  		String password = scanner.next();
-					  		int role = auth.authorize(userId, password);
+					  		int role = auth.authorize(userName, password);
  					  		if(role == -1) {
 					  			System.out.println("Invalid user id or password. Please try again");
 					  			break;

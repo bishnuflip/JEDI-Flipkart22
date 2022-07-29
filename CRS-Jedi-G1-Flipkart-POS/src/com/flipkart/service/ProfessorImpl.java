@@ -5,57 +5,54 @@ import com.flipkart.database.dbConst;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Grade;
 public class ProfessorImpl implements ProfessorInterface {
+	
+	private static volatile ProfessorImpl instance = null;
+    ProfessorDaoOperation professorDaoOperation = ProfessorDaoOperation.getInstance();
+    
+    public static ProfessorImpl getInstance() {
+        if (instance == null) {
+            synchronized (ProfessorImpl.class) {
+                instance = new ProfessorImpl();
+            }
+        }
+        return instance;
+    }
+
 
 	@Override
 	public List<Course> viewAllCourses() {
-		List<Course> allCourses = new ArrayList<Course>(dbConst.courses.values());
-		return allCourses;
+		ArrayList<Course> clist = professorDaoOperation.viewAvailableCourses();
+		if(clist.size()==0) {
+			System.out.println("No available courses at this point of time");
+		}
+		return clist;
 	}
 
 	@Override
 	public List<Student> viewEnrolledStudents(int professorId) {
-		HashSet<Integer> courses = new HashSet<>();
-		final Integer profId = professorId;
-		dbConst.courses.forEach((key,value)->{
-			if(value.getProfessorId() == profId)
-			{
-				courses.add(key);
-			}
-		});
-		List<Student>students = new ArrayList<>();
-		dbConst.studentCourses.forEach((key,value)->{
-			for(Integer course: value.getCourses())
-			{
-				if(courses.contains(course))
-				{
-					students.add(dbConst.students.get(key));
-					break;
-				}
-			}
-		});
-		return students;
+		
+		Map<Integer,ArrayList<Student>> stulist = professorDaoOperation.viewEnrolledStudents(professorId);
+		ArrayList<Student> student = new ArrayList<Student>();
+		for(Map.Entry<Integer,ArrayList<Student>> entry: stulist.entrySet())
+		{
+				student = entry.getValue();
+				break;
+		}
+		return student;
 	}
 
 	@Override
 	public boolean selectCourse(int professorId, int courseId) {
-		try {
-			dbConst.courses.get(courseId).setProfessorId(professorId);
-			return true;
-		}
-		catch(Exception e) {
-			return false;
+		if(!professorDaoOperation.selectCourse(professorId,courseId)) {
+			System.out.println("course not found with id "+ courseId);
 		}
 	}
 
 	@Override
 	public void assignGrade(int studentId, int courseId, int semesterNumber,int grade) {
-		// TODO Auto-generated method 
-		Grade gradeObj = new Grade();
-		gradeObj.setStudentId(studentId);
-		gradeObj.setCourse(courseId);
-		gradeObj.setGrade(grade);
-		gradeObj.setSemester(semesterNumber);
-		dbConst.grades.put(studentId+"$"+courseId,gradeObj);
+		if(!professorDaoOperation.assignGrade(studentId,courseId,grade)) {
+			System.out.println("course not found with id "+ courseId);
+		}
 	}
 
 }

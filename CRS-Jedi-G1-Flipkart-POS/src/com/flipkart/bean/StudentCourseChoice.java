@@ -11,7 +11,7 @@ import java.util.ArrayList;
  */
 public class StudentCourseChoice {
 	private int studentId;
-	private ArrayList<Integer> courses;
+	private ArrayList<Course> courses;
 	/**
 	 * @return the studentId
 	 */
@@ -27,13 +27,13 @@ public class StudentCourseChoice {
 	/**
 	 * @return the courses
 	 */
-	public ArrayList<Integer> getCourses() {
+	public ArrayList<Course> getCourses() {
 		return courses;
 	}
 	/**
 	 * @param courses the courses to set
 	 */
-	public void setCourses(ArrayList<Integer> courses) {
+	public void setCourses(ArrayList<Course> courses) {
 		this.courses = courses;
 	}
 }
