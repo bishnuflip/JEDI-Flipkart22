@@ -10,7 +10,7 @@ package com.flipkart.bean;
 public class Grade {
 	private int studentId;
 	private int semester;
-	private Course course;
+	private int course;
 	private int grade;
 	/**
 	 * @return the studentId
@@ -39,13 +39,13 @@ public class Grade {
 	/**
 	 * @return the course
 	 */
-	public Course getCourse() {
+	public int getCourse() {
 		return course;
 	}
 	/**
 	 * @param course the course to set
 	 */
-	public void setCourse(Course course) {
+	public void setCourse(int course) {
 		this.course = course;
 	}
 	/**
