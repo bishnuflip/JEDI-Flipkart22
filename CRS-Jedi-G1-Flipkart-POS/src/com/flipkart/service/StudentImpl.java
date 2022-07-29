@@ -11,6 +11,7 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void addStudentdata(Student student) {
+  
 		int id = UtilityService.getId();
 		student.setStudentId(id);
 		AuthorizationService.addUser(id, student);
