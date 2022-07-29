@@ -94,6 +94,8 @@ public class CRSApplication {
 					System.out.println("Change Password");
 					break;
 				}
+
+				case 4: System.exit(0);
 			}
 		}
 		
