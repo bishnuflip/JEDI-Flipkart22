@@ -3,7 +3,7 @@ package com.flipkart.bean;
 public class User {
 	private int userId;
 	private String username;
-	private String passwordHash;
+	//private String passwordHash;
 	private String name;
 	private String address;
 	private String gender;
