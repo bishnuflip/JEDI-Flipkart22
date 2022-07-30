@@ -3,9 +3,9 @@ package com.flipkart.bean;
 public class User {
 	private int userId;
 	private String username;
-	//private String passwordHash;
+	private String passwordHash;
 	private String name;
-	private String address;
+	private String email;
 	private String gender;
 	private String contactNo;
 	private int role;
@@ -45,6 +45,7 @@ public class User {
 	public void setPasswordHash(String passwordHash) {
 		this.passwordHash = passwordHash;
 	}
+
 	/**
 	 * @return the name
 	 */
@@ -60,14 +61,14 @@ public class User {
 	/**
 	 * @return the address
 	 */
-	public String getAddress() {
-		return address;
+	public String getEmail() {
+		return email;
 	}
 	/**
-	 * @param address the address to set
+	 * @param mail the email address to set
 	 */
-	public void setAddress(String address) {
-		this.address = address;
+	public void setEmail(String mail) {
+		this.email = mail;
 	}
 	/**
 	 * @return the gender
