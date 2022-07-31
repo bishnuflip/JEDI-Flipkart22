@@ -14,19 +14,19 @@ public class CRSApplication {
 	
     public static void main(String[] args) {
     	User admin = new User();
-    	admin.setUserId(1);
+    	admin.setUserId("1");
     	admin.setPasswordHash("admin");
     	admin.setRole(1);
     	AuthorizationService.addUser(1,admin);
     	
     	User student = new User();
-    	student.setUserId(2);
+    	student.setUserId("2");
     	student.setPasswordHash("student");
     	student.setRole(2);
     	AuthorizationService.addUser(2, student);
     	
     	User prof = new User();
-    	prof.setUserId(3);
+    	prof.setUserId("3");
     	prof.setPasswordHash("prof");
     	prof.setRole(3);
     	AuthorizationService.addUser(3, prof);

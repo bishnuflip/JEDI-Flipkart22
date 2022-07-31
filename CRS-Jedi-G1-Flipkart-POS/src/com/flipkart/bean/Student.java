@@ -13,6 +13,8 @@ public class Student extends User{
 	private int payStatus;
 	private int regStatus;
 
+	private int gradeCardStatus;
+
 	/**
 	 * @return the studentId
 	 */
@@ -69,4 +71,19 @@ public class Student extends User{
 		this.regStatus = status;
 	}
 
+	/**
+	 * returns whether grade card of student is active
+	 * @return
+	 */
+	public int getGradeCardStatus() {
+		return gradeCardStatus;
+	}
+
+	/**
+	 * sets the grade card activation status
+	 * @param gradeCardStatus
+	 */
+	public void setGradeCardStatus(int gradeCardStatus) {
+		this.gradeCardStatus = gradeCardStatus;
+	}
 }

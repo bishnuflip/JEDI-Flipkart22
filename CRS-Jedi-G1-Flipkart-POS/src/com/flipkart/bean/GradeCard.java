@@ -9,8 +9,5 @@ public class GradeCard {
     int studentId;
     int semester;
     float sgpa;
-    HashMap<Integer, Course> courseList = dbConst.courses;
-
-
 
 }
