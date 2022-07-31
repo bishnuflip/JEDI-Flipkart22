@@ -14,7 +14,7 @@ import com.flipkart.bean.User;
 public class AuthorizationService {
 	static HashMap<Integer, User> credentials = new HashMap<Integer, User>();
 	
-	public static void addUser(Integer userId, User user) {
+	/*public static void addUser(Integer userId, User user) {
 		credentials.put(userId, user);
 	}
 	public int authorize(Integer userId, String password) {
@@ -30,6 +30,6 @@ public class AuthorizationService {
 		
 	}
 	 
-	
+	*/
 
 }

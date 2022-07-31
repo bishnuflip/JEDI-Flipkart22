@@ -51,12 +51,12 @@ public interface StudentDaoInterafce {
      * @param studID
      * @return true or false based on registration status
      */
-    public boolean checkRegStatus(String studID);
+    public int checkRegStatus(String studID);
 
     /**
      * method to check if grade card is available
      * @param studID
      * @return true if grade card is available, false otherwise
      */
-    public boolean checkGradeCardStatus(String studID);
+    public int checkGradeCardStatus(String studID);
 }

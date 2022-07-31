@@ -12,11 +12,11 @@ public class StudentImpl implements StudentInterface {
 	@Override
 	public void addStudentdata(Student student) {
   
-		int id = UtilityService.getId();
+		String id = UtilityService.getId();
 		student.setStudentId(id);
-		AuthorizationService.addUser(id, student);
+		//AuthorizationService.addUser(id, student);
 
-		dbConst.students.put(id, student);
+		//dbConst.students.put(id, student);
 
 		// TODO Auto-generated method stub
 
