@@ -1,4 +1,4 @@
 package com.flipkart.dao;
 
-public class GradeCardDaoImpl implements CatalogDaoInterface{
+public class GradeCardDaoImpl implements GradeCardDaoInterface{
 }
