@@ -1,87 +1,126 @@
-/**
- * 
- */
 package com.flipkart.bean;
 
 import java.util.Date;
 
-/**
- * @author jain.harshil
- *
- */
 public class Notification {
-	private int userId;
-	private String username;
-	private int notificationId;
+
+	private String userId;
+	private int notifId;
+	private String title;
 	private String message;
-	private int userType;
-	private Date dateTime;
+	private Date date;
+	private int status;  //indicates read/unread status
+	private int type;   //indicates payment or general or issue
+
 	/**
-	 * @return the username
+	 * returns user id to whom the notification belongs
+	 * @return
 	 */
-	
-	public String getUsername() {
-		return username;
+	public String getUserId() {
+		return userId;
 	}
+
 	/**
-	 * @param username the username to set
+	 * sets user id to whom the notification belongs
+	 * @param uId
 	 */
-	public void setUsername(String username) {
-		this.username = username;
+	public void setUserId(String uId) {
+		this.userId = uId;
 	}
+
 	/**
-	 * @return the notificationId
+	 * returns the notification id
+	 * @return
 	 */
-	public int getNotificationId() {
-		return notificationId;
+	public int getNotifId() {
+		return notifId;
 	}
+
 	/**
-	 * @param notificationId the notificationId to set
+	 * sets the notification id
+	 * @param notifId
 	 */
-	public void setNotificationId(int notificationId) {
-		this.notificationId = notificationId;
+	public void setNotifId(int notifId) {
+		this.notifId = notifId;
 	}
+
 	/**
-	 * @return the message
+	 * sets the title of notification
+	 * @param title
+	 */
+	public void setTitle(String title) {
+		this.title = title;
+	}
+
+	/**
+	 * returns title of notification
+	 * @return
+	 */
+	public String getTitle() {
+		return title;
+	}
+
+	/**
+	 * returns message content of notification
+	 * @return
 	 */
 	public String getMessage() {
 		return message;
 	}
+
 	/**
-	 * @param message the message to set
+	 * sets the notification content
+	 * @param message
 	 */
 	public void setMessage(String message) {
 		this.message = message;
 	}
+
 	/**
-	 * @return the userType
+	 * returns the notification date
+	 * @return
 	 */
-	public int getUserType() {
-		return userType;
-	}
-	/**
-	 * @param userType the userType to set
-	 */
-	public void setUserType(int userType) {
-		this.userType = userType;
-	}
-	/**
-	 * @return the dateTime
-	 */
-	public Date getDateTime() {
-		return dateTime;
-	}
-	/**
-	 * @param dateTime the dateTime to set
-	 */
-	public void setDateTime(Date dateTime) {
-		this.dateTime = dateTime;
-	}
-	public int getUserId() {
-		return userId;
-	}
-	public void setUserId(int userId) {
-		this.userId = userId;
+	public Date getDate() {
+		return date;
 	}
 
+	/**
+	 * sets the notification date
+	 * @param date
+	 */
+	public void setDate(Date date) {
+		this.date = date;
+	}
+
+	/**
+	 * returns read status of notification
+	 * @return
+	 */
+	public int getStatus() {
+		return status;
+	}
+
+	/**
+	 * sets the read status of notification
+	 * @param status
+	 */
+	public void setStatus(int status) {
+		this.status = status;
+	}
+
+	/**
+	 * returns type of notification
+	 * @return
+	 */
+	public int getType() {
+		return type;
+	}
+
+	/**
+	 * sets the type of notification
+	 * @param type
+	 */
+	public void setType(int type) {
+		this.type = type;
+	}
 }

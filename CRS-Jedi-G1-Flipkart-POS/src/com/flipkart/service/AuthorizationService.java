@@ -6,6 +6,7 @@ package com.flipkart.service;
 import java.util.HashMap;
 
 import com.flipkart.bean.User;
+import com.flipkart.dao.UserDaoImpl;
 
 /**
  * @author jain.harshil
@@ -32,8 +33,8 @@ public class AuthorizationService {
 	
 	public int authorize(String username, String password)
 	{
-		AuthorizeDaoInterface auth = new AuthorizeDaoOperation();
-		int role = auth.authorizeUser(username, password);
+		UserDaoImpl auth = new UserDaoImpl();
+		int role = auth.login(username, password);
 		return role;
 	}
 	 
