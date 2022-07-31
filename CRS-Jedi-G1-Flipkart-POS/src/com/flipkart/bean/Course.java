@@ -8,21 +8,24 @@ package com.flipkart.bean;
  *
  */
 public class Course {
-	private int courseId;
+	private String courseId;
 	private String name = null;
-	private int professorId = -1;
-	private int courseFee = -1;
-	private int catalogId = -1;
+	private String professorId;
+	private float courseFee = -1;
+	private int semester;
+	private String dept;
+	private int strength = 0;
+
 	/**
 	 * @return the courseId
 	 */
-	public int getCourseId() {
+	public String getCourseId() {
 		return courseId;
 	}
 	/**
 	 * @param courseId the courseId to set
 	 */
-	public void setCourseId(int courseId) {
+	public void setCourseId(String courseId) {
 		this.courseId = courseId;
 	}
 	/**
@@ -40,42 +43,88 @@ public class Course {
 	/**
 	 * @return the professorId
 	 */
-	public int getProfessorId() {
+	public String getProfessorId() {
 		return professorId;
 	}
 	/**
 	 * @param professorId the professorId to set
 	 */
-	public void setProfessorId(int professorId) {
+	public void setProfessorId(String professorId) {
 		this.professorId = professorId;
 	}
 	/**
 	 * @return the courseFee
 	 */
-	public int getCourseFee() {
+	public float getCourseFee() {
 		return courseFee;
 	}
 	/**
 	 * @param courseFee the courseFee to set
 	 */
-	public void setCourseFee(int courseFee) {
+	public void setCourseFee(float courseFee) {
 		this.courseFee = courseFee;
 	}
 	/**
 	 * @return the catalogId
 	 */
-	public int getCatalogId() {
+	/*public int getCatalogId() {
 		return catalogId;
 	}
 	/**
 	 * @param catalogId the catalogId to set
-	 */
+
 	public void setCatalogId(int catalogId) {
 		this.catalogId = catalogId;
 	}
+	 */
 
 	@Override
 	public String toString() {
 		return "Course Name: " + this.getName() + "\nCourse  id: " + this.getCourseId() + "\nCourse Fee: " + this.getCourseFee();
+	}
+
+	/**
+	 * @return strength of the course
+	 */
+	public int getStrength() {
+		return strength;
+	}
+
+	/**
+	 * set strength of the course
+	 * @param val
+	 */
+	public void setStrength(int val) {
+		this.strength = val;
+	}
+
+	/**
+	 * @return semester for which course is available
+	 */
+	public int getSemester() {
+		return semester;
+	}
+
+	/**
+	 * set semester for which course is available
+	 * @param val
+	 */
+	public void setSemester(int val) {
+		this.semester = val;
+	}
+
+	/**
+	 * @return department that the course belongs to
+	 */
+	public String getDept() {
+		return dept;
+	}
+
+	/**
+	 * set department to which the course belongs
+	 * @param str
+	 */
+	public void setDept(String str) {
+		this.dept = str;
 	}
 }
