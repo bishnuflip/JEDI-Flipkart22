@@ -13,29 +13,11 @@ public class CRSApplication {
 	static HashMap<Integer, Student> students = new HashMap<Integer, Student>();
 	
     public static void main(String[] args) {
-    	User admin = new User();
-    	admin.setUserId("1");
-    	admin.setPasswordHash("admin");
-    	admin.setRole(1);
-    	AuthorizationService.addUser(1,admin);
-    	
-    	User student = new User();
-    	student.setUserId("2");
-    	student.setPasswordHash("student");
-    	student.setRole(2);
-    	AuthorizationService.addUser(2, student);
-    	
-    	User prof = new User();
-    	prof.setUserId("3");
-    	prof.setPasswordHash("prof");
-    	prof.setRole(3);
-    	AuthorizationService.addUser(3, prof);
     	startApplication();
-        
     }
 
 	public static void startApplication() {
-		// TODO Auto-generated method stub
+
 		System.out.println("\033[0;1m" +"\n----------------!!Welcome to CRS Application!!----------------\n"+"\033[0m");
 		System.out.println("Choose the following operation:-");
 		System.out.println("--------------------------------------------------------------");
