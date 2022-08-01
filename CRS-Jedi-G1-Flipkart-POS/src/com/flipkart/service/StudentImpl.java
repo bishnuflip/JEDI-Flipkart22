@@ -14,7 +14,9 @@ public class StudentImpl implements StudentInterface {
 	private GradeCardDaoInterface gradeCardDaoImplementation = new GradeCardDaoImpl();
 	private CourseDaoInterface courseDaoImplementation = new CourseDaoImpl();
 	private StudentDaoInterafce studentDaoImplementation = new StudentDaoImpl();
-	
+
+	private NotificationInterface notificationDaoImplementation = new NotificationDaoImpl();
+
 	public static StudentImpl getInstance(){
 		if(instance==null){
 			synchronized (StudentImpl.class){
@@ -164,5 +166,13 @@ public class StudentImpl implements StudentInterface {
 			return true;
 		return false;
 	}
+
+	public  void viewNotifications(String userId) {
+		ArrayList<Notification> notifications =  notificationDaoImplementation.viewNotificationList(userId);
+		for(Notification n: notifications) {
+			System.out.println(n.toString());
+		}
+	}
+
 
 }
