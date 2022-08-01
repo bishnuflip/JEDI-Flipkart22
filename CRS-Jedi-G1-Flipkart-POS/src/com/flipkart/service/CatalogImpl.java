@@ -3,6 +3,8 @@ package com.flipkart.service;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
+import com.flipkart.dao.AdminDaoImpl;
+import com.flipkart.dao.AdminDaoInterface;
 
 public class CatalogImpl implements CatalogInterface {
 	
@@ -20,7 +22,7 @@ public class CatalogImpl implements CatalogInterface {
 
 	@Override
 	public void removeCourse(int courseId) {
-		AdminDaoInterface admin = new AdminDaoOperation();
+		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
 			if(admin.deleteCourse(courseId))
 			{
@@ -40,7 +42,7 @@ public class CatalogImpl implements CatalogInterface {
 
 	@Override
 	public void addCourse(Course course) {
-		AdminDaoInterface admin = new AdminDaoOperation();
+		AdminDaoInterface admin = new AdminDaoImpl();
 		Boolean ans = null;
 		try {
 			ans = admin.addCourse(course);
@@ -57,9 +59,9 @@ public class CatalogImpl implements CatalogInterface {
 
 	@Override
 	public void updateCourse(Course course) {
-		AdminDaoInterface admin = new AdminDaoOperation();
+		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
-			if(admin.updateCourse(course))	//we need to change in the menu so that users can only add the details they can update
+			if(admin.modifyCourse(course))	//we need to change in the menu so that users can only add the details they can update
 				return;
 			else
 			{
@@ -74,7 +76,7 @@ public class CatalogImpl implements CatalogInterface {
 
 	@Override
 	public ArrayList<Course> getAllCourses() {
-		StudentDaoInterface studao = new StudentDaoOperation();
+		StudentDaoInterface studao = new StudentDaoImpl();
 		return studao.viewAllCourses();
 	}
 

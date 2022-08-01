@@ -11,6 +11,8 @@ import com.flipkart.bean.PaymentReference;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.SemesterRegistration;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.AdminDaoImpl;
+import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.database.dbConst;
 
 
@@ -23,37 +25,29 @@ public class AdminImpl implements AdminInterface {
 	}
 
 	@Override
-	public int addProfessor(Professor professor) {
+	public String addProfessor(Professor professor) {
 		//ProfessorImplementation.addProfessor data(professor);
-				int profId = UtilityService.getId();
-				professor.setProfessorId(profId);
-				AdminDaoInterface admin = new AdminDaoOperation();
-				try {
-					if(admin.addProfessor(professor)) {
-						System.out.println("Professor is successfully created"); 
-						return profId; 
-					}
-					else {
-						System.out.println("Professor is not added. Please enter valid professor id");
-					}
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} 
-				return 0;
-
+		String profId = UtilityService.getId(3);
+		professor.setProfessorId(profId);
+		AdminDaoInterface admin = new AdminDaoImpl();
+		try {
+			admin.addProfessor(professor);
+			System.out.println("Professor is successfully created");
+			return profId;
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return null;
 	}
 
 	@Override
-	public void removeProfessor(int professorId) {
-		AdminDaoInterface admin = new AdminDaoOperation();
+	public void removeProfessor(String professorId) {
+		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
-			if(admin.removeProfessor(professorId)){
-				System.out.println("Professor is succesfully removed");
-			}
-			else{
-				System.out.println("Professor is not removed. Please enter valid professor id");
-				}
+			admin.deleteProfessor(professorId);
+			System.out.println("Professor is succesfully removed");
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -62,16 +56,11 @@ public class AdminImpl implements AdminInterface {
 	}
 
 	@Override
-	public void updateProfessor(Professor professor) {
-		AdminDaoInterface admindao = new AdminDaoOperation();
+	public void updateProfessor(String profID, String field, String value) {
+		AdminDaoInterface admindao = new AdminDaoImpl();
 		try {
-			if(admindao.updateProfessor(professor,professor)){	//Ultimately we should update only the details that were newly changed
-				System.out.println("Professor is updated");
-
-			}
-			else{
-				System.out.println("Professor is not updated. Please enter valid professor id");
-				}
+			admindao.modifyProfessor(profID, field, value);
+			System.out.println("Professor is updated");
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -80,9 +69,9 @@ public class AdminImpl implements AdminInterface {
 	}
 
 	@Override
-	public Boolean approveStudentRegistration(int studentId) {
-		AdminDaoInterface admindaooperation = new AdminDaoOperation();
-		 return(admindaooperation.studentSelfRegistration(studentId));
+	public void approveStudentRegistration(String studentId) {
+		AdminDaoInterface admindaoimpl = new AdminDaoImpl();
+		admindaoimpl.approveStudent(studentId);
 	}
 
 	@Override
@@ -95,16 +84,16 @@ public class AdminImpl implements AdminInterface {
 
 	@Override
 	public ArrayList<Professor> viewAllProfessors() {
-		AdminDaoInterface admindaooperation = new AdminDaoOperation();
-		ArrayList<Professor> profList = admindaooperation.getAllProfessorDetails();
+		AdminDaoInterface admindaoimpl = new AdminDaoImpl();
+		ArrayList<Professor> profList = admindaoimpl.getAllProfessorDetails();
 		return profList;
 
 	}
 
 	@Override
 	public ArrayList<Course> viewAllCourses() {
-		AdminDaoInterface admindaooperation = new AdminDaoOperation();
-		 ArrayList<Course> clist = admindaooperation.viewAllCourses();
+		AdminDaoInterface admindaoimpl = new AdminDaoImpl();
+		 ArrayList<Course> clist = admindaoimpl.viewAllCourses();
 		 return clist;
 
 	}
@@ -117,9 +106,9 @@ public class AdminImpl implements AdminInterface {
 
 	@Override
 	public void addCourse(Course course) {
-		AdminDaoInterface admin = new AdminDaoOperation();
+		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
-			if(admin.addProfessor(course)) {
+			if(admin.addCourse(course)) {
 				System.out.println("Course is successfully added");  
 			}
 		}
@@ -133,15 +122,10 @@ public class AdminImpl implements AdminInterface {
 	}
 
 	@Override
-	public void removeCourse(int courseId) {
-		AdminDaoInterface admin = new AdminDaoOperation();
+	public void removeCourse(String courseId) {
+		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
-			if(admin.removeCourse(courseId)){
-				System.out.println("Course is succesfully removed");
-			}
-			else {
-				
-			}
+			admin.deleteCourse(courseId);
 		}
 		catch(Exception e) {
 			e.printStackTrace();
@@ -151,7 +135,7 @@ public class AdminImpl implements AdminInterface {
 
 	@Override
 	public void updateCourse(Course course) {
-		AdminDaoInterface admin = new AdminDaoOperation();
+		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
 			if(admin.updateCourse(course)){
 				System.out.println("Course is succesfully removed");

@@ -19,7 +19,7 @@ public class CRSApplication {
 	public static void startApplication() {
 
 		System.out.println("\033[0;1m" +"\n----------------!!Welcome to CRS Application!!----------------\n"+"\033[0m");
-		System.out.println("Choose the following operation:-");
+		System.out.println("Choose one of the following operations:-");
 		System.out.println("--------------------------------------------------------------");
 		System.out.println("\t1 : Login User\n\t2 : Self Register Student\n\t3 : Forgot/Change Password\n\t4 : Quit");
 		System.out.println("==============================================================");
@@ -36,7 +36,7 @@ public class CRSApplication {
 				case 1: {
 							System.out.println("Enter your Login details");
 					  		System.out.print("Enter UserId: ");
-					  		int userId = scanner.nextInt();
+					  		String userId = scanner.next();
 					  		System.out.print("Enter Password: ");
 					  		String password = scanner.next();
 					  		int role = auth.authorize(userId, password);
@@ -63,8 +63,7 @@ public class CRSApplication {
 					            		professorMenu.professorMenuMain();
 					                    break;
 					
-					            default: System.out.println("Invalid user choice. Program will terminate.");
-					                    //find a way to restart software after invalid input
+					            default: System.out.println("Invalid user choice. Please try again.");
 					        }
 				}
 				case 2: {

@@ -10,10 +10,10 @@ public class UserImpl implements UserInterface {
 
 	@Override
 	public void addUserdata(Student student) {
-		UserDaoInterface userDaoOperation = new UserDaoOperation();
+		UserDaoInterface userDaoImpl = new UserDaoImpl();
 		if(student.getPasswordHash().length()<4)
 			System.out.println("Password is very weak");
-		if(userDaoOperation.addUsertData(student))
+		if(userDaoImpl.addUsertData(student))
 		{
 			Notification notification = new Notification();
 			//notification.setUserId(CRSApplication.getUserId());
@@ -21,7 +21,7 @@ public class UserImpl implements UserInterface {
 			Date date = new Date();
 			notification.setDateTime(date);
 			notification.setUserType(2);
-			AdminDaoInterface adminDao = new AdminDaoOperation();
+			AdminDaoInterface adminDao = new AdminDaoImpl();
 			adminDao.generateNotification(notification);
 		}
 	}

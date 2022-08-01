@@ -16,9 +16,9 @@ public class StudentImpl implements StudentInterface {
 	
 	private static StudentImpl instance = null;
 	private CatalogInterface courseImplementation = CatalogImpl.getInstance();
-	private GradeCardDaoInterface gradeCardOperation = GradeCardDaoOperation.getInstance();
+	private GradeCardDaoInterface gradeCardOperation = GradeCardDaoImpl.getInstance();
 	private CourseDaoInterface courseDaoImplementation = CourseDaoImplementation.getInstance();
-	private StudentDaoInterface studentDaoImplementation = StudentDaoOperation.getInstance();
+	private StudentDaoInterface studentDaoImplementation = StudentDaoImpl.getInstance();
 	
 	public static StudentImpl getInstance(){
 		if(instance==null){
@@ -32,8 +32,8 @@ public class StudentImpl implements StudentInterface {
 	@Override
 	public void addStudentdata(Student student) {
   
-		StudentDaoInterface studentDaoOperation = new StudentDaoOperation();
-		if(studentDaoOperation.addStudentData(student)) {
+		StudentDaoInterface studentDaoImpl = new StudentDaoImpl();
+		if(studentDaoImpl.addStudentData(student)) {
 			System.out.println("student is added");
 		}
 
@@ -89,7 +89,7 @@ public class StudentImpl implements StudentInterface {
 //		notification.setMessage("Your application form has been submitted for the further process.");
 //		Date date = new Date();
 //		notification.setDateTime(date);
-//		AdminDaoInterface adminDao = new AdminDaoOperation();
+//		AdminDaoInterface adminDao = new AdminDaoImpl();
 //		adminDao.generateNotification(notification);
 		return studentCourseChoice;
 		// TODO Auto-generated method stub
@@ -98,7 +98,7 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void displayCourseCatalog() {
-		StudentDaoInterface studentdao = new StudentDaoOperation();
+		StudentDaoInterface studentdao = new StudentDaoImpl();
 		ArrayList<Course> clist = studentdao.viewAllCourses();
 		System.out.println("Course Id\tCourse Name\tProfessor Id\tCourse Fee");
 		 int count = 1;

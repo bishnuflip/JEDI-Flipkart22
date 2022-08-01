@@ -116,34 +116,18 @@ public class CRSAdminMenu {
 			}
 			case 6:{
 				System.out.print("Enter ProfessorId: ");
-				int professorId = scanner.nextInt();
+				String professorId = scanner.next();
 				admin.removeProfessor(professorId);
 				break;
 			}
 			case 7:{
-				Professor professor = new Professor();
-				System.out.print("Enter username: ");
-				String username = scanner.next();
-				professor.setUsername(username);
-				System.out.print("Enter password: ");
-				String passwordHash = scanner.next();
-				professor.setPasswordHash(passwordHash);
-				System.out.print("Enter name: ");
-				String name = scanner.next();
-				professor.setName(name);
-				System.out.print("Enter address: ");
-				String address = scanner.next();
-				professor.setAddress(address);
-				System.out.print("Enter contact number: ");
-				String contactNo = scanner.next();
-				professor.setContactNo(contactNo);
-				System.out.print("Enter role: ");
-				int role = scanner.nextInt();
-				professor.setRole(role);
-				System.out.print("Enter ProfessorId: ");
-				int ProfessorId = scanner.nextInt();
-				professor.setProfessorId(ProfessorId);
-				admin.updateProfessor(professor);
+				System.out.println("Enter the Professor ID:");
+				String profID = scanner.next();
+				System.out.println("Enter the field whose value is to be updated: ");
+				String field = scanner.next();
+				System.out.println("Enter the new value: ");
+				String value = scanner.next();
+				admin.updateProfessor(profID, field, value);
 				break;
 				
 			}
