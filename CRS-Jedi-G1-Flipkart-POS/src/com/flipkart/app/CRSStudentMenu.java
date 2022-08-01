@@ -44,16 +44,15 @@ public class CRSStudentMenu {
 				break;
 			}
 			case 4:{
-				System.out.println("View Grade Card");
 				System.out.println("Enter Student Id");
-				int studentId = scanner.nextInt();
+				String studentId = scanner.next();
 				studentImpl.displayGradeCard(studentId);
 				break;
 			}
 			case 5:{
 				System.out.println("View Profile");
 				System.out.println("Enter Student Id");
-				int studentId = scanner.nextInt();
+				String studentId = scanner.next();
 				System.out.println(studentImpl.viewStudentDetails(studentId).toString());
 				break;
 			}
