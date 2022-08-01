@@ -1,3 +1,4 @@
+
 package com.flipkart.app;
 
 import java.util.HashMap;
@@ -60,7 +61,7 @@ public class CRSApplication {
 					            case 3: System.out.println("Welcome Professor");
 					                    //display professor relevant options
 					            		CRSProfessorMenu professorMenu = new CRSProfessorMenu();
-					            		professorMenu.professorMenuMain();
+					            		professorMenu.professorMenuMain(userId);
 					                    break;
 					
 					            default: System.out.println("Invalid user choice. Please try again.");
@@ -82,3 +83,5 @@ public class CRSApplication {
 		
 	}
 }
+
+

@@ -14,7 +14,7 @@ public interface ProfessorInterface {
 	/**
 	 * Method to view list of enrolled Students
 	 */
-	public List<Student> viewEnrolledStudents(int professorId);
+	public List<Student> viewEnrolledStudents(String professorId);
 	
 	/**
 	 * Method to get Courses by Professor Id
@@ -22,7 +22,7 @@ public interface ProfessorInterface {
 	 * @param courseId the id of course
 	 * @return boolean data whether offered to the professor or not.
 	 */
-	public boolean selectCourse(int professorId, int courseId) ;
+	public boolean selectCourse(String professorId, String courseId) ;
 	
 	/**
 	 * Assign grades to student
@@ -30,6 +30,8 @@ public interface ProfessorInterface {
 	 * @param courseId the course id
      * @param grade the grade to be assigned
 	 */
-	public void assignGrade(int studentId, int courseId, int semesterNumber,int grade);
+	public void assignGrade(String studentId, String courseId, float grade,String professorId);
 	
 }
+
+
