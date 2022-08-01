@@ -20,14 +20,14 @@ public void addStudentdata(Student student);
 		 * @param StudentId
 		 * @return student object 
 		 */
-	 public Student viewStudentDetails(int studentId);
+	 public Student viewStudentDetails(String studentId);
 	 
 	 /**
 		 * Method for Selecting Courses
 		 * @param StudentId
 		 * @return StudentCourseChoice object
 		 */
-	 public StudentCourseChoice selectCourses(int studentId);
+	 public StudentCourseChoice selectCourses(String studentId);
 	 
 	 /**
 		 * Method to display course catalog
@@ -39,37 +39,37 @@ public void addStudentdata(Student student);
 		 * @param StudentId
 		 * @throws GradeCardNotPublishedException
 	*/
-	 public void displayGradeCard(int studentId);
+	 public void displayGradeCard(String studentId);
 	 
 	 /**
 		 * Method for checking student registered or not
 		 * @param StudentId
 		 * @return boolean object
 		 */
-	 public Boolean studentAlreadyRegistered(int studentId);
+	 public Boolean studentAlreadyRegistered(String studentId);
 	 
 	 /**
 		 * Method for making payment successful
 		 * @param StudentId
 		 * @param referenceNo
 	*/
-	 public void makePaymentSuccessful(int studentId, String referenceNo);
+	 public void makePaymentSuccessful(String studentId, String referenceNo);
 	 
 	 /**
 		 * Method to get the payment status
 		 * @param StudentId
 		 * @param payment status 
 	 */
-	 public String getPaymentStatus(int studentId);
+	 public String getPaymentStatus(String studentId);
 	 
 	 /**
 		 * Method for checking student registered or not
 		 * @param StudentId
 		 * @return boolean object
 		 */
-	 public Boolean isStudentRegistered(int studentId);
+	 public Boolean isStudentRegistered(String studentId);
 
-	public boolean isSemesterRegistrationDone(int studentId);
+	public boolean isSemesterRegistrationDone(String studentId);
 
-	public boolean isGradeCardActivated(int studentId);
+	public boolean isGradeCardActivated(String studentId);
 }

@@ -2,25 +2,18 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-import com.flipkart.bean.Course;
-import com.flipkart.bean.GradeCard;
-import com.flipkart.bean.Student;
-import com.flipkart.bean.StudentCourseChoice;
-import com.flipkart.bean.StudentRegisteredCourses;
-import com.flipkart.dao.StudentDaoImpl;
-import com.flipkart.dao.StudentDaoInterafce;
-import com.flipkart.database.dbConst;
+import com.flipkart.bean.*;
+import com.flipkart.dao.*;
 
 public class StudentImpl implements StudentInterface {
 	
 	private static StudentImpl instance = null;
-	private CatalogInterface courseImplementation = CatalogImpl.getInstance();
-	private GradeCardDaoInterface gradeCardOperation = GradeCardDaoImpl.getInstance();
-	private CourseDaoInterface courseDaoImplementation = CourseDaoImplementation.getInstance();
-	private StudentDaoInterface studentDaoImplementation = StudentDaoImpl.getInstance();
+	private CatalogDaoInterface catalogDaoImplementation = new CatalogDaoImpl();
+	private GradeCardDaoInterface gradeCardDaoImplementation = new GradeCardDaoImpl();
+	private CourseDaoInterface courseDaoImplementation = new CourseDaoImpl();
+	private StudentDaoInterafce studentDaoImplementation = new StudentDaoImpl();
 	
 	public static StudentImpl getInstance(){
 		if(instance==null){
@@ -34,9 +27,7 @@ public class StudentImpl implements StudentInterface {
 	@Override
 	public void addStudentdata(Student student) {
 
-		StudentDaoInterafce studentdaoimpl = new StudentDaoImpl();
-		if(studentdaoimpl.addStudentData(student)) {
-			System.out.println("student is added");
+		studentDaoImplementation.addStudentData(student);
 		}
 
 	}
@@ -46,16 +37,18 @@ public class StudentImpl implements StudentInterface {
 		return studentDaoImplementation.viewAllStudents();
 	}
 
+
 	@Override
-	public Student viewStudentDetails(int studentId) {
-		return studentDaoImplementation.viewStudentDetails(studentId);
+	public Student viewStudentDetails(String studentId) {
+
+		return  studentDaoImplementation.viewStudentDetails(studentId);
 	}
 
 	@Override
-	public StudentCourseChoice selectCourses(int studentId) {
+	public StudentCourseChoice selectCourses(String studentId) {
 		
 		ArrayList<Course> selectedCourses = new ArrayList<Course>();
-		ArrayList<Course> courseCatalog = courseImplementation.getAllCourses();
+		ArrayList<Course> courseCatalog = catalogDaoImplementation.getAllCourses();
 		Map<Integer,Course> courseList = new HashMap<>();
 		for(Course c: courseCatalog)
 			courseList.put(c.getCourseId(), c);
@@ -100,37 +93,32 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void displayCourseCatalog() {
-		StudentDaoInterface studentdao = new StudentDaoImpl();
-		ArrayList<Course> clist = studentdao.viewAllCourses();
+		ArrayList<Course> clist = catalogDaoImplementation.viewCatalog(2);
 		System.out.println("Course Id\tCourse Name\tProfessor Id\tCourse Fee");
-		 int count = 1;
 		 for(Course c : clist)
 		 {
 			 System.out.println(c.getCourseId()+"\t\t"+c.getName()+"\t\t"+c.getProfessorId()+"\t\t"+c.getCourseFee());
-			 count++;
 		 }
 
 	}
 
+
+
 	@Override
-	public void displayGradeCard(int studentId) {
-StudentRegisteredCourses studentRegisteredCourses = courseDaoImplementation.getStudentRegisteredCourses(studentId);
-		
-		GradeCard gradeCard = gradeCardOperation.getGradeCard(studentId);
-		float grade1 = gradeCardOperation.getGradeFromCourseId(studentId, studentRegisteredCourses.getCourseId1());
-		float grade2 = gradeCardOperation.getGradeFromCourseId(studentId, studentRegisteredCourses.getCourseId2());
-		float grade3 = gradeCardOperation.getGradeFromCourseId(studentId, studentRegisteredCourses.getCourseId3());
-		float grade4 = gradeCardOperation.getGradeFromCourseId(studentId, studentRegisteredCourses.getCourseId4());
-		
+	public void displayGradeCard(String studentId) {
+		 GradeCard gradeCard = gradeCardDaoImplementation.viewGradeCard(studentId,2);
+		 ArrayList<Grade> grades = gradeCard.getCourseGrades();
+
 		if(gradeCard.isPublished())
 		{
 			System.out.println("\n===================GRADE CARD===================\n");
 			System.out.println("  Student Id: "+ gradeCard.getStudentId());
 			System.out.println("\n  Serial No\tCourse Name\tGrade");
-			System.out.println("  1\t\t"+ courseDaoImplementation.getCourseFromCourseId(studentRegisteredCourses.getCourseId1()).getName() +"\t\t" + grade1);
-			System.out.println("  2\t\t"+ courseDaoImplementation.getCourseFromCourseId(studentRegisteredCourses.getCourseId2()).getName() +"\t\t" + grade2);
-			System.out.println("  3\t\t"+ courseDaoImplementation.getCourseFromCourseId(studentRegisteredCourses.getCourseId3()).getName() +"\t\t" + grade3);
-			System.out.println("  4\t\t"+ courseDaoImplementation.getCourseFromCourseId(studentRegisteredCourses.getCourseId4()).getName() +"\t\t" + grade4);
+			int sno = 1;
+			for(Grade g : grades) {
+				System.out.printf("  %d\t\t%s\t\t%s\n",  sno,g.getCourseName() ,g.getGrade());
+				sno++;
+			}
 			System.out.printf("\n  SGPA: %.2f", gradeCard.getSgpa());
 			System.out.println("\n=================================================\n");
 		}
@@ -141,36 +129,39 @@ StudentRegisteredCourses studentRegisteredCourses = courseDaoImplementation.getS
 	}
 
 	@Override
-	public Boolean studentAlreadyRegistered(int studentId) {
+	public Boolean studentAlreadyRegistered(String studentId) {
 		return studentDaoImplementation.studentAlreadyRegistered(studentId);
 	}
 
 	@Override
-	public void makePaymentSuccessful(int studentId, String referenceNo) {
+	public void makePaymentSuccessful(String studentId, String referenceNo) {
 		studentDaoImplementation.makePaymentSuccessful(studentId,referenceNo);
 
 	}
 
 	@Override
-	public String getPaymentStatus(int studentId) {
+	public String getPaymentStatus(String studentId) {
 		String paymentStatus = studentDaoImplementation.getPaymentStatus(studentId);
 		return paymentStatus;
 	}
 
 	@Override
-	public Boolean isStudentRegistered(int studentId) {
-		return studentDaoImplementation.isStudentRegistered(studentId);
+	public Boolean isStudentRegistered(String studentId) {
+		if(studentDaoImplementation.checkRegStatus(studentId)==1)
+			return true;
+		return false;
 	}
 
 	@Override
-	public boolean isSemesterRegistrationDone(int studentId) {
+	public boolean isSemesterRegistrationDone(String studentId) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean isGradeCardActivated(int studentId) {
-		// TODO Auto-generated method stub
+	public boolean isGradeCardActivated(String studentId) {
+		if(studentDaoImplementation.checkGradeCardStatus(studentId) == 1)
+			return true;
 		return false;
 	}
 
