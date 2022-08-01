@@ -10,6 +10,8 @@ import com.flipkart.bean.GradeCard;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentCourseChoice;
 import com.flipkart.bean.StudentRegisteredCourses;
+import com.flipkart.dao.StudentDaoImpl;
+import com.flipkart.dao.StudentDaoInterafce;
 import com.flipkart.database.dbConst;
 
 public class StudentImpl implements StudentInterface {
@@ -31,9 +33,9 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void addStudentdata(Student student) {
-  
-		StudentDaoInterface studentDaoImpl = new StudentDaoImpl();
-		if(studentDaoImpl.addStudentData(student)) {
+
+		StudentDaoInterafce studentdaoimpl = new StudentDaoImpl();
+		if(studentdaoimpl.addStudentData(student)) {
 			System.out.println("student is added");
 		}
 
