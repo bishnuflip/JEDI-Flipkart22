@@ -13,7 +13,19 @@ public interface UserDaoInterface {
     int login(String userId, String password);
 
     /**
-     *
+     * method to get last generated index
+     * used to generate the next ID
+     * @param role
+     * @return
      */
+    public int getLastIndex(int role);
 
+    /**
+     * method to check
+     * @param userID
+     * @return
+     */
+    public boolean checkIDAvailable(String userID);
+
+    public boolean checkEmailAvailable(String email);
 }
