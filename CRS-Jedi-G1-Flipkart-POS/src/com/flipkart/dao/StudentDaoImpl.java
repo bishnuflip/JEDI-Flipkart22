@@ -105,21 +105,19 @@ public class StudentDaoImpl implements StudentDaoInterafce{
             if(rs == null) {
                 return null;
             }
-            while(rs.next()) {
-                stud.setStudentId(rs.getString("studentId"));
-                stud.setSemester(rs.getInt("semester"));
-                stud.setName(rs.getString("name"));
-                stud.setGender(rs.getString("gender"));
-                stud.setContactNo(rs.getString("phone"));
-                stud.setEmail(rs.getString("email"));
-                stud.setRole(rs.getInt("type"));
-                stud.setPayStatus(rs.getInt("payStatus"));
-                if(stud.getRole() == -1) {
-                    stud.setRegStatus(0);
-                }
-                else {
-                    stud.setRegStatus(1);
-                }
+            stud.setStudentId(rs.getString("studentId"));
+            stud.setSemester(rs.getInt("semester"));
+            stud.setName(rs.getString("name"));
+            stud.setGender(rs.getString("gender"));
+            stud.setContactNo(rs.getString("phone"));
+            stud.setEmail(rs.getString("email"));
+            stud.setRole(rs.getInt("type"));
+            stud.setPayStatus(rs.getInt("payStatus"));
+            if(stud.getRole() == -1) {
+                stud.setRegStatus(0);
+            }
+            else {
+                stud.setRegStatus(1);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);

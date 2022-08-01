@@ -49,7 +49,7 @@ public class GradeCardDaoImpl implements GradeCardDaoInterface{
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return gcard;
     }
 
     @Override
