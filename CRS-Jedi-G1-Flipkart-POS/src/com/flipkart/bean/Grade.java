@@ -8,59 +8,51 @@ package com.flipkart.bean;
  *
  */
 public class Grade {
-	private int studentId;
-	private int semester;
-	private int course;
-	private int grade;
-	/**
-	 * @return the studentId
-	 */
-	public int getStudentId() {
-		return studentId;
-	}
-	/**
-	 * @param studentId the studentId to set
-	 */
-	public void setStudentId(int studentId) {
-		this.studentId = studentId;
-	}
-	/**
-	 * @return the semester
-	 */
-	public int getSemester() {
-		return semester;
-	}
-	/**
-	 * @param semester the semester to set
-	 */
-	public void setSemester(int semester) {
-		this.semester = semester;
-	}
+
+	private String courseId;
+	private String courseName;
+	private float grade;
+
 	/**
 	 * @return the course
 	 */
-	public int getCourse() {
-		return course;
+	public String getCourseId() {
+		return courseId;
 	}
+
 	/**
-	 * @param course the course to set
+	 * @param cId the course to set
 	 */
-	public void setCourse(int course) {
-		this.course = course;
+	public void setCourseId(String cId) {
+		this.courseId = cId;
 	}
+
+	/**
+	 * @return the name of the course
+	 */
+	public String getCourseName() {
+		return courseName;
+	}
+
+	/**
+	 * @param courseName the name of the course
+	 */
+	public void setCourseName(String courseName) {
+		this.courseName = courseName;
+	}
+
 	/**
 	 * @return the grade
 	 */
-	public int getGrade() {
+	public float getGrade() {
 		return grade;
 	}
+
 	/**
 	 * @param grade the grade to set
 	 */
-	public void setGrade(int grade) {
+	public void setGrade(float grade) {
 		this.grade = grade;
 	}
-	
-	
 
 }

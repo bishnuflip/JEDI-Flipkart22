@@ -3,6 +3,8 @@
  */
 package com.flipkart.bean;
 
+import javafx.util.Pair;
+
 import java.util.ArrayList;
 
 /**
@@ -10,30 +12,32 @@ import java.util.ArrayList;
  *
  */
 public class StudentCourseChoice {
-	private int studentId;
-	private ArrayList<Course> courses;
+	private String studentId;
+
+	//pair consists of course ID and type of choice
+	private ArrayList<Pair<String, Integer>> courses;
 	/**
 	 * @return the studentId
 	 */
-	public int getStudentId() {
+	public String getStudentId() {
 		return studentId;
 	}
 	/**
 	 * @param studentId the studentId to set
 	 */
-	public void setStudentId(int studentId) {
+	public void setStudentId(String studentId) {
 		this.studentId = studentId;
 	}
 	/**
 	 * @return the courses
 	 */
-	public ArrayList<Course> getCourses() {
+	public ArrayList<Pair<String, Integer>> getCourses() {
 		return courses;
 	}
 	/**
 	 * @param courses the courses to set
 	 */
-	public void setCourses(ArrayList<Course> courses) {
+	public void setCourses(ArrayList<Pair<String, Integer>> courses) {
 		this.courses = courses;
 	}
 }

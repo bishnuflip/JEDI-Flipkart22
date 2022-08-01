@@ -234,7 +234,7 @@ public class StudentDaoImpl implements StudentDaoInterafce{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT courseId FROM ALLOTEDCOURSE WHERE studentID = ? and grade = NULL";
+        String sql = "SELECT gradeCardStatus FROM STUDENT WHERE studId = ?";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
@@ -242,6 +242,9 @@ public class StudentDaoImpl implements StudentDaoInterafce{
             stmt.close();
             util.closeConnection();
             if(rs == null) {
+                return -1;
+            }
+            if(rs.getInt("gradeCardStatus") == 0) {
                 return 0;
             }
             else {
