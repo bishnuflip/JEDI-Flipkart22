@@ -50,7 +50,8 @@ public class CourseDaoImpl implements CourseDaoInterface{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT courseId, name, dept, profId FROM ALLOTEDCOURSE, COURSE WHERE ALLOTEDCOURSE.courseId = COURSE.courseId and studentId = ?";
+        String sql = "SELECT courseId, name, dept, profId FROM COURSE WHERE courseId in (SELECT courseId FROM ALLOTEDCOURSE WHERE studentId = ?)";
+        //String sql = "SELECT courseId, name, dept, profId FROM ALLOTEDCOURSE, COURSE WHERE ALLOTEDCOURSE.courseId = COURSE.courseId and studentId = ?";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
