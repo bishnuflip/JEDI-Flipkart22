@@ -7,11 +7,7 @@ import java.util.ArrayList;
 
 public interface StudentDaoInterafce {
 
-    /**
-     * method to add student details to database
-     * @param student
-     */
-    public void addStudentData(Student student);
+    public void  addStudentData(Student student);
 
     /**
      * method to get list of all students from database

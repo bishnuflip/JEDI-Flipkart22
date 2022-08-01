@@ -86,4 +86,9 @@ public class Student extends User{
 	public void setGradeCardStatus(int gradeCardStatus) {
 		this.gradeCardStatus = gradeCardStatus;
 	}
+
+	@Override
+	public String toString() {
+		System.out.println("Name: " + this.getName() + "\nEmail: " + this.getContactNo()+ "\nContact: " + this.getContactNo() + "\nStudent Id: " + this.getStudentId() + "\nSemester: " + this.getSemester());
+	}
 }
