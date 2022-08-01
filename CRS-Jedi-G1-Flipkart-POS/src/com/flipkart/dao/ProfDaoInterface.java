@@ -42,4 +42,26 @@ public interface ProfDaoInterface {
      * @return
      */
     public float viewGrade(String studID, String courseID);
+
+    /**
+     * method to view the courses chosen by professor
+     * @param profID
+     * @return
+     */
+    public ArrayList<Course> viewChosenCourses(String profID);
+
+    /**
+     * method to delete a choice by professor
+     * @param profID
+     * @param courseID
+     * @return status of deletion, 1 if successful, 0 if unsuccessful, -1 for error
+     */
+    public int deleteCourseChoice(String profID, String courseID);
+
+    /**
+     * method to view courses allotted to a professor
+     * @param profID
+     * @return
+     */
+    public ArrayList<Course> viewAllottedCourses(String profID);
 }
