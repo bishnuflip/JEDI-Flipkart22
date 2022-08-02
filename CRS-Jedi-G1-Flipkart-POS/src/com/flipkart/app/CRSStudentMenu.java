@@ -13,11 +13,11 @@ import java.util.Scanner;
  */
 public class CRSStudentMenu {
 
-	public void studentMenuMain() {
+	public void studentMenuMain(String studentId) {
 		// TODO Auto-generated method stub
 		System.out.println("Choose an option:-");
 		System.out.println("----------------------------------------------------------");
-		System.out.println("\t1 : View Course List\n\t2 : Semester Registration\n\t3 : Payment\n\t4 : View Grade Card\n\t5 : View Profile\n\t6 : View Notifications\n\t7 : Logout");
+		System.out.println("\t1 : View Course List\n\t2 : Register for Courses\n\t3 : Payment\n\t4 : View Grade Card\n\t5 : View Profile\n\t6 : View Notifications\n\t7 : Logout");
 		System.out.println("==========================================================");
 		Scanner scanner = new Scanner(System.in);
 		StudentImpl studentImpl = new StudentImpl();
@@ -31,12 +31,11 @@ public class CRSStudentMenu {
 			}
 			switch(choice) {
 			case 1:{
-				System.out.println("View Course List");
 				studentImpl.displayCourseCatalog();
 				break;
 			}
 			case 2:{
-				System.out.println("Semester Registration");
+				studentImpl.selectCourses(studentId);
 				break;
 			}
 			case 3:{
@@ -44,20 +43,15 @@ public class CRSStudentMenu {
 				break;
 			}
 			case 4:{
-				System.out.println("Enter Student Id");
-				String studentId = scanner.next();
 				studentImpl.displayGradeCard(studentId);
 				break;
 			}
 			case 5:{
-				System.out.println("View Profile");
-				System.out.println("Enter Student Id");
-				String studentId = scanner.next();
 				System.out.println(studentImpl.viewStudentDetails(studentId).toString());
 				break;
 			}
 			case 6:{
-				System.out.println("View Notifications");
+				studentImpl.viewNotifications(studentId);
 				break;
 			}
 			}

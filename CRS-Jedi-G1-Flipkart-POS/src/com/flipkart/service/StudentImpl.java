@@ -3,9 +3,11 @@ package com.flipkart.service;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Scanner;
 
 import com.flipkart.bean.*;
 import com.flipkart.dao.*;
+import jdk.internal.util.xml.impl.Pair;
 
 public class StudentImpl implements StudentInterface {
 	
@@ -14,7 +16,9 @@ public class StudentImpl implements StudentInterface {
 	private GradeCardDaoInterface gradeCardDaoImplementation = new GradeCardDaoImpl();
 	private CourseDaoInterface courseDaoImplementation = new CourseDaoImpl();
 	private StudentDaoInterafce studentDaoImplementation = new StudentDaoImpl();
-	
+
+	private NotificationInterface notificationDaoImplementation = new NotificationDaoImpl();
+
 	public static StudentImpl getInstance(){
 		if(instance==null){
 			synchronized (StudentImpl.class){
@@ -47,24 +51,25 @@ public class StudentImpl implements StudentInterface {
 	@Override
 	public StudentCourseChoice selectCourses(String studentId) {
 		
-		ArrayList<Course> selectedCourses = new ArrayList<Course>();
-		ArrayList<Course> courseCatalog = catalogDaoImplementation.getAllCourses();
-		Map<Integer,Course> courseList = new HashMap<>();
+		ArrayList<Course> selectedCourses = new ArrayList<Pair<String, Integer>>();
+		ArrayList<Course> courseCatalog = catalogDaoImplementation.viewCatalog(2);
+		Map<String,Course> courseList = new HashMap<>();
 		for(Course c: courseCatalog)
 			courseList.put(c.getCourseId(), c);
 		for(int i=0; i<6; )
 		{
-			//System.out.print("Enter course(courseId) choice-"+i+": ");
-			//int courseId = sc.nextInt();
-			
-			int courseId = id.get(i);
+			Scanner sc = new Scanner(System.in);
+			System.out.print("Enter course(courseId) choice-"+i+": ");
+			String courseId = sc.next();
+			System.out.print("Enter the type of choice (1-Core 2-Elective) : ");
+			Integer type = sc.nextInt();
 			Course course = null;
 			if(courseList.containsKey(courseId))
 				course = courseList.get(courseId);
 			if(course != null)
 			{
 				i++;
-				selectedCourses.add(course);
+				selectedCourses.add(make_pair(courseId,type));
 			}
 			else
 			{
@@ -79,16 +84,7 @@ public class StudentImpl implements StudentInterface {
 		studentDaoImplementation.storeStudentCourseChoice(studentCourseChoice);
 		
 		System.out.println("Registration form submitted!!");
-//		Notification notification = new Notification();
-//		notification.setUserId(CRSApplication.getUserId());
-//		notification.setMessage("Your application form has been submitted for the further process.");
-//		Date date = new Date();
-//		notification.setDateTime(date);
-//		AdminDaoInterface adminDao = new AdminDaoImpl();
-//		adminDao.generateNotification(notification);
 		return studentCourseChoice;
-		// TODO Auto-generated method stub
-		return null;
 	}
 
 	@Override
@@ -164,5 +160,13 @@ public class StudentImpl implements StudentInterface {
 			return true;
 		return false;
 	}
+
+	public  void viewNotifications(String userId) {
+		ArrayList<Notification> notifications =  notificationDaoImplementation.viewNotificationList(userId);
+		for(Notification n: notifications) {
+			System.out.println(n.toString());
+		}
+	}
+
 
 }

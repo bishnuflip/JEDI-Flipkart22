@@ -123,4 +123,11 @@ public class Notification {
 	public void setType(int type) {
 		this.type = type;
 	}
+
+	@Override
+	public String toString() {
+		System.out.println("Title: " + this.getTitle());
+		System.out.println("Date: " + this.getDate());
+		System.out.println("Message: " + this.getMessage());
+	}
 }

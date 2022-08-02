@@ -54,7 +54,7 @@ public class CRSApplication {
 					            case 2: System.out.println("Welcome Student");
 					                    //display student relevant options
 					            		CRSStudentMenu studentMenu = new CRSStudentMenu();
-					            		studentMenu.studentMenuMain();
+					            		studentMenu.studentMenuMain(userId);
 					                    break;
 					
 					            case 3: System.out.println("Welcome Professor");

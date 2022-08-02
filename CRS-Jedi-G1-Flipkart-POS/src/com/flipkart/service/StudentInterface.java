@@ -72,4 +72,6 @@ public void addStudentdata(Student student);
 	public boolean isSemesterRegistrationDone(String studentId);
 
 	public boolean isGradeCardActivated(String studentId);
+
+	public  void viewNotifications(String userId);
 }
