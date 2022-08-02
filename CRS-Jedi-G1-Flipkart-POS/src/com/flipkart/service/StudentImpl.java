@@ -29,12 +29,7 @@ public class StudentImpl implements StudentInterface {
 		return instance;
 	}
 
-	@Override
-	public void addStudentdata(Student student) {
 
-		studentDaoImplementation.addStudentData(student);
-
-	}
 
 	@Override
 	public ArrayList<Student> viewStudentData() {
@@ -166,6 +161,34 @@ public class StudentImpl implements StudentInterface {
 		for(Notification n: notifications) {
 			System.out.println(n.toString());
 		}
+	}
+
+	public void registerNewStudent()
+	{
+		Student student = new Student();
+
+		student.setStudentId(UtilityService.getId(2));
+
+		Scanner sc = new Scanner(System.in);
+		System.out.println("Enter Name: ");
+		student.setName(sc.next());
+
+		System.out.println("Enter Semester: ");
+		student.setSemester(sc.nextInt());
+
+		System.out.println("\nEnter Phone: ");
+		student.setContactNo(sc.next());
+
+		System.out.println("\nEnter Email: ");
+		student.setEmail(sc.next());
+
+		System.out.println("\nEnter Gender: ");
+		student.setGender(sc.next());
+
+		System.out.println("\nEnter Password: ");
+		student.setPasswordHash(sc.next());
+
+		studentDaoImplementation.addStudentData(student);
 	}
 
 

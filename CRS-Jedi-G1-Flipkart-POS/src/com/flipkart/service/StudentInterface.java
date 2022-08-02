@@ -6,8 +6,7 @@ import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentCourseChoice;
 
 public interface StudentInterface {
-	
-public void addStudentdata(Student student);
+
 	
 	/**
 	 * Method to view all student details
@@ -74,4 +73,6 @@ public void addStudentdata(Student student);
 	public boolean isGradeCardActivated(String studentId);
 
 	public  void viewNotifications(String userId);
+
+	public void registerNewStudent();
 }

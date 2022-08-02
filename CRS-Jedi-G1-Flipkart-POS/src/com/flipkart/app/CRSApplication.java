@@ -8,6 +8,8 @@ import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
 import com.flipkart.service.AuthorizationService;
+import com.flipkart.service.StudentImpl;
+import com.flipkart.service.StudentInterface;
 
 public class CRSApplication {
 	static HashMap<Integer, Professor> professors = new HashMap<Integer, Professor>();
@@ -75,6 +77,8 @@ public class CRSApplication {
 				case 2: {
 					//Register Student Portal
 					System.out.println("Self Registration");
+					StudentInterface studentInterface = new StudentImpl();
+					studentInterface.registerNewStudent();
 					break;
 				}
 				case 3: {
