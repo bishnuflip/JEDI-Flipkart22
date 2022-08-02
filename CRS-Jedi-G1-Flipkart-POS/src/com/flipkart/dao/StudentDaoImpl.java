@@ -270,7 +270,6 @@ public class StudentDaoImpl implements StudentDaoInterafce{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
             while(rs.next()) {
                 Course crs = new Course();
                 crs.setCourseId(rs.getString("courseId"));
@@ -286,6 +285,7 @@ public class StudentDaoImpl implements StudentDaoInterafce{
             throw new RuntimeException(e);
         }
         try {
+            stmt.close();
             util.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -361,7 +361,7 @@ public class StudentDaoImpl implements StudentDaoInterafce{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT userId, name FROM USER WHERE userId IN (SELECT DISTINCT studentId AS userId FROM STUDENTCHOICE) AS STUDCHOICE";
+        String sql = "SELECT userId, name FROM USER WHERE userId IN (SELECT DISTINCT studentId AS userId FROM STUDENTCHOICE)";
         try {
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();

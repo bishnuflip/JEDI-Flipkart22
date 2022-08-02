@@ -4,6 +4,7 @@ package com.flipkart.app;
 import java.util.HashMap;
 import java.util.Scanner;
 
+import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
@@ -16,10 +17,14 @@ public class CRSApplication {
 	static HashMap<Integer, Student> students = new HashMap<Integer, Student>();
 	
     public static void main(String[] args) {
-    	startApplication();
-    }
+		try {
+			startApplication();
+		} catch (GradeCardNotPublishedException e) {
+			throw new RuntimeException(e);
+		}
+	}
 
-	public static void startApplication() {
+	public static void startApplication() throws GradeCardNotPublishedException {
 
 		while(true)
 		{

@@ -6,6 +6,8 @@
 package com.flipkart.app;
 
 import java.util.*;
+
+import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.Grade;
@@ -30,7 +32,6 @@ public class CRSProfessorMenu {
 			int choice = scanner.nextInt();
 			if(choice == 5)
 			{
-				CRSApplication.startApplication();
 				break;
 			}
 			switch(choice) {

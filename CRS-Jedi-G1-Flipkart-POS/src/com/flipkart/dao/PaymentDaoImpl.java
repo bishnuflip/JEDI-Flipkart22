@@ -34,7 +34,7 @@ public class PaymentDaoImpl implements PaymentDaoInterface{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT payStatus FROM STUDENT WHERE studId = ?";
+        String sql = "SELECT payStatus FROM STUDENT WHERE studentId = ?";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);

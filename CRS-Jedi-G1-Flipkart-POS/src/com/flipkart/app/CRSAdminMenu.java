@@ -6,6 +6,8 @@ package com.flipkart.app;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.flipkart.Exceptions.CourseNotFoundException;
+import com.flipkart.Exceptions.ProfessorNotFoundException;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -64,7 +66,11 @@ public class CRSAdminMenu {
 				}
 				case 2: {
 					System.out.print("Enter CourseId: ");
-					admin.removeCourse(scanner.next());
+					try {
+						admin.removeCourse(scanner.next());
+					} catch (CourseNotFoundException e) {
+						throw new RuntimeException(e);
+					}
 					break;
 				}
 				case 3: {
@@ -86,9 +92,6 @@ public class CRSAdminMenu {
 				}
 				case 5: {
 					Professor professor = new Professor();
-//				System.out.println("Enter username: ");
-//				String username = scanner.next();
-//				professor.setUsername(username);
 					System.out.println("Enter password: ");
 					String passwordHash = scanner.next();
 					professor.setPasswordHash(passwordHash);
@@ -109,7 +112,11 @@ public class CRSAdminMenu {
 				case 6: {
 					System.out.print("Enter ProfessorId: ");
 					String professorId = scanner.next();
-					admin.removeProfessor(professorId);
+					try {
+						admin.removeProfessor(professorId);
+					} catch (ProfessorNotFoundException e) {
+						throw new RuntimeException(e);
+					}
 					break;
 				}
 				case 7: {
@@ -127,8 +134,11 @@ public class CRSAdminMenu {
 					System.out.println("The list of pending students is as follows: ");
 					StudentInterface students = new StudentImpl();
 					students.pendingList();
-					System.out.print("Enter StudentId: ");
+					System.out.print("Enter StudentId of student to be registered (enter 'b' to go back): ");
 					String studentId = scanner.next();
+					if(studentId.equals("b")) {
+						break;
+					}
 					admin.approveStudentRegistration(studentId);
 					break;
 				}

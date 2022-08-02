@@ -3,6 +3,7 @@
  */
 package com.flipkart.app;
 
+import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.Course;
 import com.flipkart.service.StudentImpl;
 
@@ -15,7 +16,7 @@ import java.util.Scanner;
  */
 public class CRSStudentMenu {
 
-	public void studentMenuMain(String studentId) {
+	public void studentMenuMain(String studentId) throws GradeCardNotPublishedException {
 		// TODO Auto-generated method stub
 		System.out.println("Choose an option:-");
 		System.out.println("----------------------------------------------------------");
@@ -28,7 +29,6 @@ public class CRSStudentMenu {
 			int choice = scanner.nextInt();
 			if(choice == 7)
 			{
-				CRSApplication.startApplication();
 				break;
 			}
 			switch(choice) {
@@ -43,8 +43,20 @@ public class CRSStudentMenu {
 			case 3:{
 				System.out.println("The courses selected are: ");
 				ArrayList<Course> courseList = studentImpl.viewStudentCourseChoice(studentId);
-				//to be implemented, iterate through and display choices plus sum up course fees to display total amount payable
-				studentImpl.makePaymentSuccessful(studentId);
+				float amt = 0;
+				for(Course crs: courseList) {
+					System.out.println(crs.getCourseId() + "\t" + crs.getName() + "\t" + crs.getProfessorId() + "\t" + crs.getCourseFee());
+					amt += crs.getCourseFee();
+				}
+				System.out.println("The total fees to be paid is: " + amt);
+				System.out.print("Enter 1 to pay, 2 to abort: ");
+				int ch = scanner.nextInt();
+				switch(ch) {
+					case 1: studentImpl.makePaymentSuccessful(studentId);
+							break;
+					case 2: System.out.println("Payment cancelled");
+							break;
+				}
 				break;
 			}
 			case 4:{
