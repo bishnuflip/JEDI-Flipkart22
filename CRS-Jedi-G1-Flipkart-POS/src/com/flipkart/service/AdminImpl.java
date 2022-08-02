@@ -1,31 +1,20 @@
 package com.flipkart.service;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
-import com.flipkart.bean.Challan;
-import com.flipkart.bean.Course;
-import com.flipkart.bean.PaymentReference;
-import com.flipkart.bean.Professor;
-import com.flipkart.bean.SemesterRegistration;
-import com.flipkart.bean.Student;
-import com.flipkart.dao.AdminDaoImpl;
-import com.flipkart.dao.AdminDaoInterface;
-import com.flipkart.dao.CatalogDaoImpl;
-import com.flipkart.dao.CatalogDaoInterface;
-import com.flipkart.dao.PaymentDaoImpl;
-import com.flipkart.dao.PaymentDaoInterface;
+import com.flipkart.bean.*;
+import com.flipkart.dao.*;
 import com.flipkart.database.dbConst;
+import javafx.util.Pair;
 
 
 public class AdminImpl implements AdminInterface {
 
 	@Override
-	public void activateGradeCard() {
-		// TODO Auto-generated method stub
-
+	public void activateGradeCard(String studentID) {
+		GradeCardDaoInterface gradeCard = new GradeCardDaoImpl();
+		gradeCard.activateGradeCard(studentID);
 	}
 
 	@Override
@@ -80,7 +69,7 @@ public class AdminImpl implements AdminInterface {
 
 	@Override
 	public ArrayList<Student> viewAllStudents() {
-		StudentInterface studentImplementation = StudentImpl.getInstance();
+		StudentInterface studentImplementation = new StudentImpl();
 		ArrayList<Student> studentData = studentImplementation.viewStudentData();
 		return studentData;
 
@@ -103,9 +92,44 @@ public class AdminImpl implements AdminInterface {
 	}
 
 	@Override
-	public void allocatePendingCourses() {
-		// TODO Auto-generated method stub
+	public ArrayList<Course> viewStudentCourseChoice(String studentID) {
+		StudentDaoInterafce student = new StudentDaoImpl();
+		ArrayList<Course> studChoice = student.viewSelectedCourses(studentID);
+		return studChoice;
+	}
 
+
+	@Override
+	public void allocateStudentCourse(String studentID) {
+		PaymentDaoInterface payment = new PaymentDaoImpl();
+		if(payment.getPaymentStatus(studentID)) {
+			System.out.println("Payment for courses pending. Allocation failed");
+			return;
+		}
+		StudentDaoInterafce studentDao = new StudentDaoImpl();
+		AdminDaoInterface adminDao = new AdminDaoImpl();
+		ArrayList<Course> choiceList = studentDao.viewSelectedCourses(studentID);
+		for(Course crs: choiceList) {
+			adminDao.allotCourseStudent(studentID, crs.getCourseId());
+		}
+	}
+
+	@Override
+	public void viewPendingStudents() {
+		StudentDaoInterafce students = new StudentDaoImpl();
+		ArrayList<Student> studList = students.getPengingCourseAllotmentList();
+		for(Student stud : studList) {
+			System.out.println(stud.getStudentId() + "\t" + stud.getName());
+		}
+	}
+
+	@Override
+	public int getPayStatus(String studentID) {
+		PaymentDaoInterface pay = new PaymentDaoImpl();
+		if(pay.getPaymentStatus(studentID)) {
+			return 1;
+		}
+		return 0;
 	}
 
 	@Override
@@ -172,8 +196,8 @@ public class AdminImpl implements AdminInterface {
 		// TODO Auto-generated method stub
 		AdminDaoInterface admin = new AdminDaoImpl();
 		admin.modifyCourse(courseID, field, value);
-		
 	}
+
 
 
 }

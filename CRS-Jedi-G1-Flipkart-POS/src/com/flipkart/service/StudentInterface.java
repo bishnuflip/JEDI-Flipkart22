@@ -2,6 +2,7 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentCourseChoice;
 
@@ -75,4 +76,16 @@ public interface StudentInterface {
 	public  void viewNotifications(String userId);
 
 	public void registerNewStudent();
+
+	/**
+	 * method to print list of students who are yet to be registered
+	 */
+	public void pendingList();
+
+	/**
+	 * method to get courses chosen by student
+	 * @param studentId
+	 */
+	public ArrayList<Course> viewStudentCourseChoice(String studentId);
+
 }

@@ -20,7 +20,7 @@ public class UserDaoImpl implements UserDaoInterface{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, userId);
             ResultSet rs = stmt.executeQuery();
-            System.out.println(rs);
+            //System.out.println(rs);
             if(rs == null) {
                 System.out.println("User does not exist");
             }
@@ -49,6 +49,7 @@ public class UserDaoImpl implements UserDaoInterface{
         Connection conn = util.connect();
         PreparedStatement stmt = null;
         String sql;
+        int index;
         String column = "";
         if(role == 1) {
             column = "admin";
@@ -63,21 +64,27 @@ public class UserDaoImpl implements UserDaoInterface{
             return -1;
         }
         try {
-            sql = "SELECT " + column + " FROM INDEX";
+            sql = "SELECT " + column + " FROM INDEXTABLE";
+            //System.out.println(sql);
             stmt = conn.prepareStatement(sql);
+            //System.out.println("Statement prepared");
             ResultSet rs = stmt.executeQuery();
-            int index = rs.getInt(column);
-            stmt.close();
-            sql = "UPDATE INDEX SET " + column + " = ?";
+            //System.out.println("The result set is: "+rs);
+            index = 0;
+            while(rs.next()) {
+                index = rs.getInt(column);
+                System.out.println(index);
+            }
+            sql = "UPDATE INDEXTABLE SET " + column + " = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setInt(1, index+1);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
-            util.closeConnection();
+            //util.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return 0;
+        return index;
     }
 
     @Override

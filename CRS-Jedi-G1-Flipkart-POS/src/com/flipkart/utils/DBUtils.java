@@ -22,7 +22,7 @@ public class DBUtils {
             Class.forName("com.mysql.jdbc.Driver");
 
             //make/open the connection
-            System.out.println("Connecting to database...");
+            //System.out.println("Connecting to database...");
             conn = DriverManager.getConnection(DB_url, user, pass);
 
         } catch (ClassNotFoundException e) {

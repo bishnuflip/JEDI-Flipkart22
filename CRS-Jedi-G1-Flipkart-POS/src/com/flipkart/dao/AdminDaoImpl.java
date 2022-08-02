@@ -15,7 +15,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "INSERT INTO COURSE ('courseId', 'name', 'semester', 'fees', 'dept') VALUES (?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO COURSE (courseId, name, semester, fees, dept) VALUES (?, ?, ?, ?, ?)";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, crs.getCourseId());
@@ -23,7 +23,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             stmt.setInt(3, crs.getSemester());
             stmt.setFloat(4, crs.getCourseFee());
             stmt.setString(5, crs.getDept());
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -44,17 +44,15 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
-            stmt.executeQuery();
-            stmt.close();
+            stmt.executeUpdate();
             sql = "DELETE FROM STUDENTCHOICE WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
-            stmt.executeQuery();
-            stmt.close();
+            stmt.executeUpdate();
             sql = "DELETE FROM PROFCHOICE WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -71,13 +69,12 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "UPDATE COURSE SET ? = ? WHERE courseId = ?";
+        String sql = "UPDATE COURSE SET " + field + " = ? WHERE courseId = ?";
         try {
             stmt = conn.prepareStatement(sql);
-            stmt.setString(1, field);
-            stmt.setString(2, value);
-            stmt.setString(3, courseID);
-            stmt.executeQuery();
+            stmt.setString(1, value);
+            stmt.setString(2, courseID);
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -131,22 +128,19 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
-            stmt.executeQuery();
-            stmt.close();
+            stmt.executeUpdate();
             sql = "DELETE FROM USER WHERE userId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
-            stmt.executeQuery();
-            stmt.close();
+            stmt.executeUpdate();
             sql = "DELETE FROM PROFCHOICE WHERE profId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
-            stmt.executeQuery();
-            stmt.close();
+            stmt.executeUpdate();
             sql = "UPDATE COURSE SET prodId = null WHERE profId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -164,13 +158,12 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         Connection conn = util.connect();
         PreparedStatement stmt = null;
         if(field == "profId" || field == "dept" || field == "position") {
-            String sql = "UPDATE PROFESSOR SET ? = ? WHERE profId = ?";
+            String sql = "UPDATE PROFESSOR SET " + field + " = ? WHERE profId = ?";
             try {
                 stmt = conn.prepareStatement(sql);
-                stmt.setString(1, field);
-                stmt.setString(2, value);
-                stmt.setString(3, profID);
-                stmt.executeQuery();
+                stmt.setString(1, value);
+                stmt.setString(2, profID);
+                stmt.executeUpdate();
                 stmt.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -182,13 +175,12 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             }
         }
         else {
-            String sql = "UPDATE USER SET ? = ? WHERE profId = ?";
+            String sql = "UPDATE USER SET " + field + " = ? WHERE profId = ?";
             try {
                 stmt = conn.prepareStatement(sql);
-                stmt.setString(1, field);
-                stmt.setString(2, value);
-                stmt.setString(3, profID);
-                stmt.executeQuery();
+                stmt.setString(1, value);
+                stmt.setString(2, profID);
+                stmt.executeUpdate();
                 stmt.close();
             } catch (SQLException e) {
                 throw new RuntimeException(e);
@@ -340,28 +332,28 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT profId, name, gender, phone, email, dept, position FROM (SELECT * FROM USER, PROFESSOR WHERE userId = profId)";
+        String sql = "SELECT profId, name, gender, phNo, email, dept, position FROM (SELECT * FROM USER, PROFESSOR WHERE userId = profId) AS PROFS";
         try {
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
-            util.closeConnection();
             while(rs.next()) {
                 Professor prof = new Professor();
-                prof.setProfessorId(rs.getString("studentId"));
-                prof.setUserId(rs.getString("studentId"));
+                prof.setProfessorId(rs.getString("profId"));
+                prof.setUserId(rs.getString("profId"));
                 prof.setName(rs.getString("name"));
                 prof.setGender(rs.getString("gender"));
-                prof.setContactNo(rs.getString("phone"));
+                prof.setContactNo(rs.getString("phNo"));
                 prof.setEmail(rs.getString("email"));
                 prof.setDept(rs.getString("dept"));
                 prof.setPosition(rs.getString("position"));
                 profList.add(prof);
             }
+            stmt.close();
+            util.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return profList;
     }
 
     @Override
@@ -373,7 +365,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -425,14 +417,17 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
-            int strength = rs.getInt("strength");
+            int strength = 0;
+            while(rs.next()) {
+                strength = rs.getInt("strength");
+            }
             if(strength == 10) {
 
                 //delete the course choice from student choice table
-                sql = "DELETE FROM STUDENTCHOICE WHERE courseId = ?";
+                sql = "DELETE FROM STUDENTCHOICE WHERE courseId = ? AND studentId = ?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, courseID);
+                stmt.setString(2, studID);
                 stmt.executeQuery();
                 stmt.close();
                 util.closeConnection();
@@ -440,28 +435,29 @@ public class AdminDaoImpl implements  AdminDaoInterface{
                 //return fail status to notify student
                 return 0;
             }
-            int semester = rs.getInt("semester");
+            int semester = 0;
+            while(rs.next()) {
+                semester = rs.getInt("semester");
+            }
 
             //update course strength
             sql = "UPDATE COURSE SET strength = ? WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
-            stmt.setInt(1, strength);
+            stmt.setInt(1, strength+1);
             stmt.setString(2, courseID);
-            stmt.executeQuery();
-            stmt.close();
+            stmt.executeUpdate();
 
-            sql = "INSERT INTO ALLOTEDCOURSE ('studentId', 'courseId', 'semester') VALUES (?, ?, ?)";
+            sql = "INSERT INTO ALLOTEDCOURSE (studentId, courseId, semester) VALUES (?, ?, ?)";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
             stmt.setString(2, courseID);
             stmt.setInt(3, semester);
-            stmt.executeQuery();
-            stmt.close();
+            stmt.executeUpdate();
 
             sql = "DELETE FROM STUDENTCHOICE WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);

@@ -62,15 +62,15 @@ public class GradeCardDaoImpl implements GradeCardDaoInterface{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
             if(rs != null) {
+                stmt.close();
                 return 0;
             }
             else {
                 sql = "UPDATE STUDENT SET gradeCardStatus = 1 WHERE studentId = ?";
                 stmt = conn.prepareStatement(sql);
                 stmt.setString(1, studID);
-                stmt.executeQuery();
+                stmt.executeUpdate();
                 stmt.close();
                 util.closeConnection();
                 return 1;

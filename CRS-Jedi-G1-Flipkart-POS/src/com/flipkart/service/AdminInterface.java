@@ -17,7 +17,7 @@ public interface AdminInterface {
 	public void addCourse(Course course);
 	public void removeCourse(String courseId);
 	public void updateCourse(String courseID, String field, String value);
-	public void activateGradeCard();
+	public void activateGradeCard(String studentID);
 	public String addProfessor(Professor professor);
 	public void removeProfessor(String professorId) ;
 	public void updateProfessor(String profID, String field, String value);
@@ -25,7 +25,11 @@ public interface AdminInterface {
 	public ArrayList<Student> viewAllStudents();
 	public ArrayList<Professor> viewAllProfessors();
 	public ArrayList<Course> viewAllCourses();
-	public void allocatePendingCourses();
+	public ArrayList<Course> viewStudentCourseChoice(String studentID);
+	public void allocateStudentCourse(String studentID);
+	public void viewPendingStudents();
+
+	public int getPayStatus(String studentID);
 	
 
 }

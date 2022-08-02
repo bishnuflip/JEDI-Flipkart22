@@ -3,8 +3,10 @@
  */
 package com.flipkart.app;
 
+import com.flipkart.bean.Course;
 import com.flipkart.service.StudentImpl;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -39,7 +41,10 @@ public class CRSStudentMenu {
 				break;
 			}
 			case 3:{
-				System.out.println("Payment");
+				System.out.println("The courses selected are: ");
+				ArrayList<Course> courseList = studentImpl.viewStudentCourseChoice(studentId);
+				//to be implemented, iterate through and display choices plus sum up course fees to display total amount payable
+				studentImpl.makePaymentSuccessful(studentId);
 				break;
 			}
 			case 4:{

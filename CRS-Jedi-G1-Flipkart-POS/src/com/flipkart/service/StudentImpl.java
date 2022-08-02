@@ -168,6 +168,7 @@ public class StudentImpl implements StudentInterface {
 		Student student = new Student();
 
 		student.setStudentId(UtilityService.getId(2));
+		System.out.println("The id generated is: "+student.getStudentId());
 
 		Scanner sc = new Scanner(System.in);
 		System.out.println("Enter Name: ");
@@ -191,5 +192,20 @@ public class StudentImpl implements StudentInterface {
 		studentDaoImplementation.addStudentData(student);
 	}
 
+	@Override
+	public void pendingList() {
+		StudentDaoInterafce students = new StudentDaoImpl();
+		ArrayList<Student> studList = students.getPendingRegList();
+		for(Student stud: studList) {
+			System.out.println(stud.getStudentId() + "\t" + stud.getPayStatus());
+		}
+	}
+
+	@Override
+	public ArrayList<Course> viewStudentCourseChoice(String studentID) {
+		StudentDaoInterafce student = new StudentDaoImpl();
+		ArrayList<Course> studChoice = student.viewSelectedCourses(studentID);
+		return studChoice;
+	}
 
 }

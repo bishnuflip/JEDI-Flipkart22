@@ -1,8 +1,10 @@
 package com.flipkart.dao;
 
+import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentCourseChoice;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public interface StudentDaoInterafce {
@@ -55,4 +57,26 @@ public interface StudentDaoInterafce {
      * @return true if grade card is available, false otherwise
      */
     public int checkGradeCardStatus(String studID);
+
+    /**
+     * method to get the courses chosen by student
+     * @param studID
+     * @return
+     */
+    public ArrayList<Course> viewSelectedCourses(String studID);
+
+    /**
+     * method to see the courses a student is registered for
+     * @param studID
+     * @return
+     */
+    public ArrayList<Course> viewAllotedCourses(String studID);
+
+    /**
+     * method to get list of students whose registration is pending
+     * @return
+     */
+    public ArrayList<Student> getPendingRegList();
+
+    public ArrayList<Student> getPengingCourseAllotmentList();
 }

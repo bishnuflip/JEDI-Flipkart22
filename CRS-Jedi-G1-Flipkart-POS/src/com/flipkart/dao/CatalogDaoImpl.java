@@ -26,7 +26,6 @@ public class CatalogDaoImpl implements CatalogDaoInterface{
         try {
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
             while(rs.next()) {
                 Course course = new Course();
                 course.setCourseId(rs.getString("courseId"));
@@ -42,6 +41,7 @@ public class CatalogDaoImpl implements CatalogDaoInterface{
             throw new RuntimeException(e);
         }
         try {
+            stmt.close();
             util.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
