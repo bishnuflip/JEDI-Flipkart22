@@ -3,10 +3,12 @@
  */
 package com.flipkart.app;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.service.AdminImpl;
 
 /**
@@ -115,19 +117,24 @@ public class CRSAdminMenu {
 				
 			}
 			case 8:{
-				System.out.println("Approve Student Registration");
+				System.out.print("Enter StudentId: ");
+				String studentId = scanner.next();
+				admin.approveStudentRegistration(studentId);
 				break;
 			}
 			case 9:{
-				admin.viewAllStudents();
+				ArrayList<Student> students = admin.viewAllStudents();
+				students.stream().map(s->s.getName()).forEach(System.out::println);
 				break;
 			}
 			case 10:{
-				admin.viewAllProfessors();
+				ArrayList<Professor> professors = admin.viewAllProfessors();
+				professors.stream().map(s->s.getName()).forEach(System.out::println);
 				break;
 			}
 			case 11:{
-				admin.viewAllCourses();
+				ArrayList<Course> courses = admin.viewAllCourses();
+				courses.stream().map(s->s.getName()).forEach(System.out::println);
 				System.out.println("View All Courses");
 				break;
 			}
