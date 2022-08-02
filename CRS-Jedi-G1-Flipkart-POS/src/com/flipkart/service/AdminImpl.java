@@ -13,6 +13,10 @@ import com.flipkart.bean.SemesterRegistration;
 import com.flipkart.bean.Student;
 import com.flipkart.dao.AdminDaoImpl;
 import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.CatalogDaoImpl;
+import com.flipkart.dao.CatalogDaoInterface;
+import com.flipkart.dao.PaymentDaoImpl;
+import com.flipkart.dao.PaymentDaoInterface;
 import com.flipkart.database.dbConst;
 
 
@@ -85,15 +89,15 @@ public class AdminImpl implements AdminInterface {
 	@Override
 	public ArrayList<Professor> viewAllProfessors() {
 		AdminDaoInterface admindaoimpl = new AdminDaoImpl();
-		ArrayList<Professor> profList = admindaoimpl.getAllProfessorDetails();
+		ArrayList<Professor> profList = admindaoimpl.viewProfs();
 		return profList;
 
 	}
 
 	@Override
 	public ArrayList<Course> viewAllCourses() {
-		AdminDaoInterface admindaoimpl = new AdminDaoImpl();
-		 ArrayList<Course> clist = admindaoimpl.viewAllCourses();
+		CatalogDaoInterface catalogdaoimpl = new CatalogDaoImpl();
+		 ArrayList<Course> clist = catalogdaoimpl.viewCatalog(1);
 		 return clist;
 
 	}
@@ -107,18 +111,7 @@ public class AdminImpl implements AdminInterface {
 	@Override
 	public void addCourse(Course course) {
 		AdminDaoInterface admin = new AdminDaoImpl();
-		try {
-			if(admin.addCourse(course)) {
-				System.out.println("Course is successfully added");  
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-		
-		
-		
+		admin.addCourse(course);
 	}
 
 	@Override
@@ -133,22 +126,21 @@ public class AdminImpl implements AdminInterface {
 		
 	}
 
-	@Override
-	public void updateCourse(Course course) {
-		AdminDaoInterface admin = new AdminDaoImpl();
-		try {
-			if(admin.updateCourse(course)){
-				System.out.println("Course is succesfully removed");
-			}
-			else {
-				
-			}
-		}
-		catch(Exception e) {
-			e.printStackTrace();
-		}
-		
-	}
+//	@Override
+//	public void updateCourse(Course course) {
+////		AdminDaoInterface admin = new AdminDaoImpl();
+////		if(admin.modifyCourse(course)){
+////				System.out.println("Course is succesfully removed");
+////			}
+////			else {
+////				
+////			}
+////		}
+////		catch(Exception e) {
+////			e.printStackTrace();
+////		}
+//		
+//	}
 	
 	public Challan generateChallan(SemesterRegistration semesterRegistration) {
 		int fee = semesterRegistration.getTotalFee();
@@ -158,6 +150,7 @@ public class AdminImpl implements AdminInterface {
 		Challan challan = new Challan();
 		challan.setChallanNo((paymentReferenceNumber*265)%10000);
 		challan.setPaymentReference(paymentReference);
+		PaymentDaoInterface paymentsDaoImplementation = new PaymentDaoImpl();
 		paymentsDaoImplementation.storeChallan(challan);
 		return challan;
 	}
@@ -168,9 +161,18 @@ public class AdminImpl implements AdminInterface {
 		paymentReference.setPaymentStatus(1);
 		paymentReference.setAmount(fee);
 		paymentReference.setPayeeName(studentImplementation.viewStudentDetails(studentId).getName());
+		PaymentDaoInterface paymentsDaoImplementation = new PaymentDaoImpl();
 		int paymentReferenceNumber = paymentsDaoImplementation.storePaymentReference(paymentReference);
 		paymentReference.setReferenceNo(paymentReferenceNumber);
 		return paymentReference;
+	}
+
+	@Override
+	public void updateCourse(String courseID, String field, String value) {
+		// TODO Auto-generated method stub
+		AdminDaoInterface admin = new AdminDaoImpl();
+		admin.modifyCourse(courseID, field, value);
+		
 	}
 
 

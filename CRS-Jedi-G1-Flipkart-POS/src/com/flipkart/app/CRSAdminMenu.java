@@ -3,10 +3,12 @@
  */
 package com.flipkart.app;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
+import com.flipkart.bean.Student;
 import com.flipkart.service.AdminImpl;
 
 /**
@@ -42,7 +44,7 @@ public class CRSAdminMenu {
 			case 1:{
 			Course newCourse = new Course();
 			System.out.print("Enter CourseId: ");
-			newCourse.setCourseId(scanner.nextInt());
+			newCourse.setCourseId(scanner.next());
 
 			System.out.print("Enter course name: ");
 			newCourse.setName(scanner.next());
@@ -50,39 +52,24 @@ public class CRSAdminMenu {
 			System.out.print("Enter Course Fee: ");
 			newCourse.setCourseFee(scanner.nextInt());
 
-			System.out.print("Enter CatalogId");
-			newCourse.setCatalogId(scanner.nextInt());
-
+			
 			admin.addCourse(newCourse);
 			break;
 			
 			}
 			case 2:{
 				System.out.print("Enter CourseId: ");
-				admin.removeCourse(scanner.nextInt());
+				admin.removeCourse(scanner.next());
 				break;
 			}
 			case 3:{
-				Course newCourse1 = new Course();
-				System.out.print("Enter Course Id: ");
-				newCourse1.setCourseId(scanner.nextInt());
-				System.out.println("Note: Enter NA if you want to keep the details same.");
-				String s;
-				System.out.print("Enter new course name: ");
-				s = scanner.next();
-				if(!s.equals("NA"))
-					newCourse1.setName(s);
-				
-				System.out.print("Enter new Professor Id: ");
-				s = scanner.next();
-				if(!s.equals("NA"))
-					newCourse1.setProfessorId(Integer.parseInt(s));
-				
-				System.out.print("Enter new Course Fee: ");
-				s = scanner.next();
-				if(!s.equals("NA"))
-					newCourse1.setCourseFee(Integer.parseInt(s));
-				admin.updateCourse(newCourse1);
+				System.out.println("Enter the Course ID:");
+				String courseID = scanner.next();
+				System.out.println("Enter the field whose value is to be updated: ");
+				String field = scanner.next();
+				System.out.println("Enter the new value: ");
+				String value = scanner.next();
+				admin.updateProfessor(courseID, field, value);
 				break;
 			}
 			case 4:{
@@ -101,9 +88,7 @@ public class CRSAdminMenu {
 				System.out.print("Enter name: ");
 				String name = scanner.next();
 				professor.setName(name);
-				System.out.print("Enter address: ");
-				String address = scanner.next();
-				professor.setAddress(address);
+				
 				System.out.print("Enter gender('MALE'/'FEMALE'/'OTHERS'): ");
 				String gender = scanner.next();	//Input MALE / FEMALE / OTHER all in capitals
 				professor.setGender(gender);
@@ -132,19 +117,24 @@ public class CRSAdminMenu {
 				
 			}
 			case 8:{
-				System.out.println("Approve Student Registration");
+				System.out.print("Enter StudentId: ");
+				String studentId = scanner.next();
+				admin.approveStudentRegistration(studentId);
 				break;
 			}
 			case 9:{
-				admin.viewAllStudents();
+				ArrayList<Student> students = admin.viewAllStudents();
+				students.stream().map(s->s.getName()).forEach(System.out::println);
 				break;
 			}
 			case 10:{
-				admin.viewAllProfessors();
+				ArrayList<Professor> professors = admin.viewAllProfessors();
+				professors.stream().map(s->s.getName()).forEach(System.out::println);
 				break;
 			}
 			case 11:{
-				admin.viewAllCourses();
+				ArrayList<Course> courses = admin.viewAllCourses();
+				courses.stream().map(s->s.getName()).forEach(System.out::println);
 				System.out.println("View All Courses");
 				break;
 			}
