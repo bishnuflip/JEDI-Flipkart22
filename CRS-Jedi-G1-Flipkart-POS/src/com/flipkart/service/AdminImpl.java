@@ -142,7 +142,7 @@ public class AdminImpl implements AdminInterface {
 //		
 //	}
 	
-	public Challan generateChallan(SemesterRegistration semesterRegistration) {
+/*	public Challan generateChallan(SemesterRegistration semesterRegistration) {
 		int fee = semesterRegistration.getTotalFee();
 		int studentId = semesterRegistration.getStudentId();
 		PaymentReference paymentReference = getPaymentReference(fee, studentId);
@@ -154,16 +154,16 @@ public class AdminImpl implements AdminInterface {
 		paymentsDaoImplementation.storeChallan(challan);
 		return challan;
 	}
-	
-	private PaymentReference getPaymentReference(int fee, int studentId) {
+*/
+	private PaymentReference getPaymentReference(float fee, String studentId) {
 		PaymentReference paymentReference = new PaymentReference();
 		StudentInterface studentImplementation = StudentImpl.getInstance();
 		paymentReference.setPaymentStatus(1);
 		paymentReference.setAmount(fee);
 		paymentReference.setPayeeName(studentImplementation.viewStudentDetails(studentId).getName());
 		PaymentDaoInterface paymentsDaoImplementation = new PaymentDaoImpl();
-		int paymentReferenceNumber = paymentsDaoImplementation.storePaymentReference(paymentReference);
-		paymentReference.setReferenceNo(paymentReferenceNumber);
+		//int paymentReferenceNumber = paymentsDaoImplementation.storePaymentReference(paymentReference);
+		//paymentReference.setReferenceNo(paymentReferenceNumber);
 		return paymentReference;
 	}
 

@@ -126,8 +126,7 @@ public class Notification {
 
 	@Override
 	public String toString() {
-		System.out.println("Title: " + this.getTitle());
-		System.out.println("Date: " + this.getDate());
-		System.out.println("Message: " + this.getMessage());
+		String str = "Title: " + this.getTitle() + "\nDate: " + this.getDate() + "\nMessage: " + this.getMessage();
+		return str ;
 	}
 }

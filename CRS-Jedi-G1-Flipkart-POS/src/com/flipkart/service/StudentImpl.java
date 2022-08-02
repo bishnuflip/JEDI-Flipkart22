@@ -33,7 +33,6 @@ public class StudentImpl implements StudentInterface {
 	public void addStudentdata(Student student) {
 
 		studentDaoImplementation.addStudentData(student);
-		}
 
 	}
 

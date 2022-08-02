@@ -3,7 +3,7 @@ package com.flipkart.bean;
 public class PaymentReference {
 	private int referenceNo;
 	private String payeeName;
-	private int amount;
+	private float amount;
 	private int paymentStatus;
 	/**
 	 * @return the referenceNo
@@ -32,13 +32,13 @@ public class PaymentReference {
 	/**
 	 * @return the amount
 	 */
-	public int getAmount() {
+	public float getAmount() {
 		return amount;
 	}
 	/**
 	 * @param amount the amount to set
 	 */
-	public void setAmount(int amount) {
+	public void setAmount(float amount) {
 		this.amount = amount;
 	}
 	/**

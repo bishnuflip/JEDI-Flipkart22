@@ -5,6 +5,8 @@ import java.util.Date;
 import com.flipkart.app.CRSApplication;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.UserDaoImpl;
+import com.flipkart.dao.UserDaoInterface;
 
 public class UserImpl implements UserInterface {
 
@@ -13,7 +15,7 @@ public class UserImpl implements UserInterface {
 		UserDaoInterface userDaoImpl = new UserDaoImpl();
 		if(student.getPasswordHash().length()<4)
 			System.out.println("Password is very weak");
-		if(userDaoImpl.addUsertData(student))
+		/*if(userDaoImpl.addUsertData(student))
 		{
 			Notification notification = new Notification();
 			//notification.setUserId(CRSApplication.getUserId());
@@ -23,7 +25,7 @@ public class UserImpl implements UserInterface {
 			notification.setUserType(2);
 			AdminDaoInterface adminDao = new AdminDaoImpl();
 			adminDao.generateNotification(notification);
-		}
+		}*/
 	}
 
 }

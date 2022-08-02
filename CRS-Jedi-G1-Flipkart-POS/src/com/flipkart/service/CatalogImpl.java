@@ -3,35 +3,17 @@ package com.flipkart.service;
 import java.util.ArrayList;
 
 import com.flipkart.bean.Course;
-import com.flipkart.dao.AdminDaoImpl;
-import com.flipkart.dao.AdminDaoInterface;
+import com.flipkart.dao.*;
 
 public class CatalogImpl implements CatalogInterface {
-	
-	private static CatalogImpl instance = null;
-	private CourseDaoInterface courseDaoImplementation = CourseDaoImplementation.getInstance();
-	
-	public static CatalogImpl getInstance(){
-		if(instance==null){
-			synchronized (CatalogImpl.class){
-				instance = new CatalogImpl();
-			}
-		}
-		return instance;
-	}
+
+	private CourseDaoInterface courseDaoImplementation = new CourseDaoImpl();
 
 	@Override
-	public void removeCourse(int courseId) {
+	public void removeCourse(String courseId) {
 		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
-			if(admin.deleteCourse(courseId))
-			{
-				return;
-			}
-			else
-			{
-				System.out.println("Course is not removed. Please enter correct course id");
-			}
+			admin.deleteCourse(courseId);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -43,30 +25,19 @@ public class CatalogImpl implements CatalogInterface {
 	@Override
 	public void addCourse(Course course) {
 		AdminDaoInterface admin = new AdminDaoImpl();
-		Boolean ans = null;
 		try {
-			ans = admin.addCourse(course);
+			admin.addCourse(course);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		if(ans)
-			return;
-		else
-			System.out.println("Course already exists");
-		
 	}
 
 	@Override
-	public void updateCourse(Course course) {
+	public void updateCourse(String courseID, String field, String value) {
 		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
-			if(admin.modifyCourse(course))	//we need to change in the menu so that users can only add the details they can update
-				return;
-			else
-			{
-				System.out.println("Course not found");
-			}
+			admin.modifyCourse(courseID, field, value);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -76,28 +47,22 @@ public class CatalogImpl implements CatalogInterface {
 
 	@Override
 	public ArrayList<Course> getAllCourses() {
-		StudentDaoInterface studao = new StudentDaoImpl();
-		return studao.viewAllCourses();
+		CatalogDaoInterface catalog = new CatalogDaoImpl();
+		return catalog.viewCatalog(2);
 	}
 
 	@Override
-	public Course getCourseFromCatalog(int courseId) {
+	public Course getCourseFromCatalog(String courseId) {
 		ArrayList<Course> courseList = getAllCourses();
-		if(courseList.size()==0)
-		{
-			System.out.println("Course not found with id "+ courseId);
-		}
-		else
-		{
-			for(Course course:courseList)
-			{
-				if(course.getCourseId() == courseId)
-				{
+		if (courseList.size() == 0) {
+			System.out.println("Course not found with id " + courseId);
+		} else {
+			for (Course course : courseList) {
+				if (course.getCourseId() == courseId) {
 					return course;
 				}
-			}	
-			return null;
-			
+			}
 		}
+		return null;
 	}
 }
