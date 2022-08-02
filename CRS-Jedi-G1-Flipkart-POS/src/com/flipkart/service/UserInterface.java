@@ -8,4 +8,12 @@ public interface UserInterface {
 	 * @param user contains the student details
 	 */
 	public void addUserdata(Student student);
+
+	/**
+	 * method to help user change password
+	 * @param userID
+	 * @param password
+	 * @return
+	 */
+	public boolean changePassword(String userID, String password);
 }

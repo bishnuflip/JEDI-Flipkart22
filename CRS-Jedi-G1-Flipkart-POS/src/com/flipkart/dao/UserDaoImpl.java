@@ -98,11 +98,11 @@ public class UserDaoImpl implements UserDaoInterface{
             stmt.setString(1, userID);
             ResultSet rs = stmt.executeQuery();
             if(rs == null) {
-                return true;
+                return false;
             }
             stmt.close();
             util.closeConnection();
-            return false;
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -119,13 +119,36 @@ public class UserDaoImpl implements UserDaoInterface{
             stmt.setString(1, email);
             ResultSet rs = stmt.executeQuery();
             if(rs == null) {
-                return true;
+                return false;
             }
             stmt.close();
             util.closeConnection();
-            return false;
+            return true;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    @Override
+    public boolean changePassword(String userID, String password) {
+        DBUtils util = new DBUtils();
+        Connection conn = util.connect();
+        PreparedStatement stmt = null;
+        String sql;
+        if(!checkIDAvailable(userID)) {
+            return false;
+        }
+        try {
+            sql = "UPDATE USER SET password = ? WHERE userId = ?";
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, password);
+            stmt.setString(2, userID);
+            stmt.executeUpdate();
+            stmt.close();
+            //util.closeConnection();
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+        return true;
     }
 }

@@ -8,14 +8,10 @@ import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.User;
-import com.flipkart.service.AuthorizationService;
-import com.flipkart.service.StudentImpl;
-import com.flipkart.service.StudentInterface;
+import com.flipkart.service.*;
 
 public class CRSApplication {
-	static HashMap<Integer, Professor> professors = new HashMap<Integer, Professor>();
-	static HashMap<Integer, Student> students = new HashMap<Integer, Student>();
-	
+
     public static void main(String[] args) {
 		try {
 			startApplication();
@@ -26,6 +22,7 @@ public class CRSApplication {
 
 	public static void startApplication() throws GradeCardNotPublishedException {
 
+		UserInterface user = new UserImpl();
 		while(true)
 		{
 			System.out.println("\033[0;1m" +"\n----------------!!Welcome to CRS Application!!----------------\n"+"\033[0m");
@@ -87,7 +84,23 @@ public class CRSApplication {
 					break;
 				}
 				case 3: {
-					System.out.println("Change Password");
+					System.out.print("Enter userID: ");
+					String uId = scanner.next();
+					System.out.print("Enter new password: ");
+					String str1 = scanner.next();
+					System.out.print("Confirm new password: ");
+					String str2 = scanner.next();
+					if(str1.equals(str2)) {
+						if(user.changePassword(uId, str1)) {
+							System.out.println("Password changed successfully");
+						}
+						else {
+							System.out.println("Invalid user ID. Please retry.");
+						}
+					}
+					else {
+						System.out.println("Passwords do not match. Please retry.");
+					}
 					break;
 				}
 

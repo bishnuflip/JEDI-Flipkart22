@@ -28,4 +28,6 @@ public interface UserDaoInterface {
     public boolean checkIDAvailable(String userID);
 
     public boolean checkEmailAvailable(String email);
+
+    public boolean changePassword(String userID, String password);
 }

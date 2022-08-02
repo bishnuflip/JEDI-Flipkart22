@@ -73,8 +73,6 @@ public class CRSStudentMenu {
 			}
 			}
 		}
-		scanner.close();
-		
 	}
 
 }

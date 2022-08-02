@@ -5,6 +5,8 @@ import java.util.Date;
 import com.flipkart.app.CRSApplication;
 import com.flipkart.bean.Notification;
 import com.flipkart.bean.Student;
+import com.flipkart.dao.AdminDaoImpl;
+import com.flipkart.dao.AdminDaoInterface;
 import com.flipkart.dao.UserDaoImpl;
 import com.flipkart.dao.UserDaoInterface;
 
@@ -26,6 +28,15 @@ public class UserImpl implements UserInterface {
 			AdminDaoInterface adminDao = new AdminDaoImpl();
 			adminDao.generateNotification(notification);
 		}*/
+	}
+
+	@Override
+	public boolean changePassword(String userID, String password) {
+		UserDaoInterface user = new UserDaoImpl();
+		if(user.changePassword(userID, password)) {
+			return true;
+		}
+		return false;
 	}
 
 }
