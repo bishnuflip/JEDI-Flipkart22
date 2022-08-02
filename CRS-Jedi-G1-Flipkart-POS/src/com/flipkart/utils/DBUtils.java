@@ -11,7 +11,7 @@ public class DBUtils {
 
     //Database access credentials
     static final String user = "root";
-    static final String pass = "Blue_178779";
+    static final String pass = "mysql@root";
     Connection conn = null;
 
     public Connection connect() {

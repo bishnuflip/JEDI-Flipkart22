@@ -11,7 +11,7 @@ import java.sql.SQLException;
 public class UserDaoImpl implements UserDaoInterface{
 
     @Override
-    public int login(String userId, String password) {
+    public int login(String userId, String password) throws  RuntimeException{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
@@ -20,21 +20,24 @@ public class UserDaoImpl implements UserDaoInterface{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, userId);
             ResultSet rs = stmt.executeQuery();
+            System.out.println(rs);
             if(rs == null) {
                 System.out.println("User does not exist");
             }
-            String pwdHash = rs.getString("password");
-            int type = rs.getInt("type");
+            String pwdHash = "";
+            int type = -1;
+            while(rs.next()) {
+                pwdHash = rs.getString("password");
+                type = rs.getInt("type");
+            }
             if(!pwdHash.equals(password)) {
                 stmt.close();
                 util.closeConnection();
                 return -1;
             }
-            else {
-                stmt.close();
-                util.closeConnection();
-                return rs.getInt("type");
-            }
+            stmt.close();
+            util.closeConnection();
+            return type;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
