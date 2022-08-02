@@ -3,6 +3,9 @@ package com.flipkart.service;
 
 import java.util.*;
 
+import com.flipkart.Exceptions.CourseNotFoundException;
+import com.flipkart.Exceptions.ProfessorNotFoundException;
+import com.flipkart.Exceptions.UserNotApprovedException;
 import com.flipkart.bean.*;
 import com.flipkart.dao.*;
 import com.flipkart.database.dbConst;
@@ -35,13 +38,17 @@ public class AdminImpl implements AdminInterface {
 	}
 
 	@Override
-	public void removeProfessor(String professorId) {
+	public void removeProfessor(String professorId) throws ProfessorNotFoundException {
 		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
 			admin.deleteProfessor(professorId);
 			System.out.println("Professor is succesfully removed");
 
-		} catch (Exception e) {
+		} 
+		catch(ProfessorNotFoundException e) {
+			throw e;
+		}
+		catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
@@ -64,7 +71,14 @@ public class AdminImpl implements AdminInterface {
 	@Override
 	public void approveStudentRegistration(String studentId) {
 		AdminDaoInterface admindaoimpl = new AdminDaoImpl();
-		admindaoimpl.approveStudent(studentId);
+		try {
+			admindaoimpl.approveStudent(studentId);
+		} catch (UserNotApprovedException e) {
+			System.out.println(e.getMessage());
+		}
+		catch(Exception e) {
+			e.printStackTrace();
+		}
 	}
 
 	@Override
@@ -139,10 +153,13 @@ public class AdminImpl implements AdminInterface {
 	}
 
 	@Override
-	public void removeCourse(String courseId) {
+	public void removeCourse(String courseId) throws CourseNotFoundException {
 		AdminDaoInterface admin = new AdminDaoImpl();
 		try {
 			admin.deleteCourse(courseId);
+		}
+		catch(CourseNotFoundException e) {
+			System.out.println(e);
 		}
 		catch(Exception e) {
 			e.printStackTrace();

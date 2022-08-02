@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
 
+import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.*;
 import com.flipkart.dao.*;
 import javafx.util.Pair;
@@ -96,7 +97,7 @@ public class StudentImpl implements StudentInterface {
 
 
 	@Override
-	public void displayGradeCard(String studentId) {
+	public void displayGradeCard(String studentId) throws GradeCardNotPublishedException {
 		 GradeCard gradeCard = gradeCardDaoImplementation.viewGradeCard(studentId,2);
 		 ArrayList<Grade> grades = gradeCard.getCourseGrades();
 
@@ -114,7 +115,7 @@ public class StudentImpl implements StudentInterface {
 			System.out.println("\n=================================================\n");
 		}
 		else {
-			System.out.println("Grade card is not yet published");
+			throw new GradeCardNotPublishedException();
 		}
 
 	}

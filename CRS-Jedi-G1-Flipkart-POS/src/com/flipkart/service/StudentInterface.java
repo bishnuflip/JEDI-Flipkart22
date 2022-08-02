@@ -2,6 +2,7 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 
+import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Student;
 import com.flipkart.bean.StudentCourseChoice;
@@ -39,7 +40,7 @@ public interface StudentInterface {
 		 * @param StudentId
 		 * @throws GradeCardNotPublishedException
 	*/
-	 public void displayGradeCard(String studentId);
+	 public void displayGradeCard(String studentId) throws GradeCardNotPublishedException;
 	 
 	 /**
 		 * Method for checking student registered or not

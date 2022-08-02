@@ -1,5 +1,9 @@
 package com.flipkart.dao;
 
+import com.flipkart.Exceptions.AdminNotFoundException;
+import com.flipkart.Exceptions.CourseNotFoundException;
+import com.flipkart.Exceptions.ProfessorNotFoundException;
+import com.flipkart.Exceptions.UserNotApprovedException;
 import com.flipkart.bean.Admin;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
@@ -36,7 +40,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
     }
 
     @Override
-    public void deleteCourse(String courseID) {
+    public void deleteCourse(String courseID) throws CourseNotFoundException{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
@@ -52,16 +56,25 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             sql = "DELETE FROM PROFCHOICE WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
-            stmt.executeUpdate();
-            stmt.close();
-        } catch (SQLException e) {
+            int res = stmt.executeUpdate();
+            if(res == 0) throw new CourseNotFoundException();
+            
+        } 
+        catch(CourseNotFoundException ce) {
+        	throw ce;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        try {
-            util.closeConnection();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
+        finally {
+        	try {
+        		stmt.close();
+                util.closeConnection();
+            } catch (SQLException e) {
+                throw new RuntimeException(e);
+            }
         }
+        
     }
 
     @Override
@@ -120,7 +133,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
     }
 
     @Override
-    public void deleteProfessor(String profID) {
+    public void deleteProfessor(String profID) throws ProfessorNotFoundException{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
@@ -140,9 +153,14 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             sql = "UPDATE COURSE SET prodId = null WHERE profId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
-            stmt.executeUpdate();
+            int res = stmt.executeUpdate();
             stmt.close();
-        } catch (SQLException e) {
+            if(res == 0) throw new ProfessorNotFoundException();
+        }
+        catch(ProfessorNotFoundException e) {
+        	throw e;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -226,7 +244,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
     }
 
     @Override
-    public void deleteAdmin(String adminID) {
+    public void deleteAdmin(String adminID) throws AdminNotFoundException {
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
@@ -239,9 +257,14 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             sql = "DELETE FROM USER WHERE userId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, adminID);
-            stmt.executeQuery();
+            int res = stmt.executeUpdate();
             stmt.close();
-        } catch (SQLException e) {
+            if(res == 0) throw new AdminNotFoundException();
+        }
+        catch(AdminNotFoundException e) {
+        	throw e;
+        }
+        catch (SQLException e) {
             throw new RuntimeException(e);
         }
         try {
@@ -357,7 +380,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
     }
 
     @Override
-    public void approveStudent(String studID) {
+    public void approveStudent(String studID) throws UserNotApprovedException {
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
@@ -365,8 +388,9 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
-            stmt.executeUpdate();
+            int res  = stmt.executeUpdate();
             stmt.close();
+            if(res == 0) throw new UserNotApprovedException(studID);
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

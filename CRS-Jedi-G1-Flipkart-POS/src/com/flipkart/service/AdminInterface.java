@@ -5,6 +5,8 @@ package com.flipkart.service;
 
 import java.util.ArrayList;
 
+import com.flipkart.Exceptions.CourseNotFoundException;
+import com.flipkart.Exceptions.ProfessorNotFoundException;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -15,11 +17,11 @@ import com.flipkart.bean.Student;
  */
 public interface AdminInterface {
 	public void addCourse(Course course);
-	public void removeCourse(String courseId);
+	public void removeCourse(String courseId) throws CourseNotFoundException;
 	public void updateCourse(String courseID, String field, String value);
 	public void activateGradeCard(String studentID);
 	public String addProfessor(Professor professor);
-	public void removeProfessor(String professorId) ;
+	public void removeProfessor(String professorId) throws ProfessorNotFoundException ;
 	public void updateProfessor(String profID, String field, String value);
 	public void approveStudentRegistration(String studentId);
 	public ArrayList<Student> viewAllStudents();
