@@ -21,7 +21,7 @@ public class Student extends User{
 	public String getStudentId() {
 		return studentId;
 	}
-
+	
 	/**
 	 * @param studentId the studentId to set
 	 */
@@ -89,6 +89,6 @@ public class Student extends User{
 
 	@Override
 	public String toString() {
-		System.out.println("Name: " + this.getName() + "\nEmail: " + this.getContactNo()+ "\nContact: " + this.getContactNo() + "\nStudent Id: " + this.getStudentId() + "\nSemester: " + this.getSemester());
+		return "Name: " + this.getName() + "\nEmail: " + this.getContactNo()+ "\nContact: " + this.getContactNo() + "\nStudent Id: " + this.getStudentId() + "\nSemester: " + this.getSemester();
 	}
 }
