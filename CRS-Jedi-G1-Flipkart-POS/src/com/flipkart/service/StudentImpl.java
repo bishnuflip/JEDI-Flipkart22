@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 import com.flipkart.bean.*;
 import com.flipkart.dao.*;
-import jdk.internal.util.xml.impl.Pair;
+import javafx.util.Pair;
 
 public class StudentImpl implements StudentInterface {
 	
@@ -18,6 +18,7 @@ public class StudentImpl implements StudentInterface {
 	private StudentDaoInterafce studentDaoImplementation = new StudentDaoImpl();
 
 	private NotificationInterface notificationDaoImplementation = new NotificationDaoImpl();
+	private PaymentDaoInterface paymentDaoImpl = new PaymentDaoImpl();
 
 	public static StudentImpl getInstance(){
 		if(instance==null){
@@ -51,7 +52,7 @@ public class StudentImpl implements StudentInterface {
 	@Override
 	public StudentCourseChoice selectCourses(String studentId) {
 		
-		ArrayList<Course> selectedCourses = new ArrayList<Pair<String, Integer>>();
+		ArrayList<Pair<String, Integer>> selectedCourses = new ArrayList<Pair<String, Integer>>();
 		ArrayList<Course> courseCatalog = catalogDaoImplementation.viewCatalog(2);
 		Map<String,Course> courseList = new HashMap<>();
 		for(Course c: courseCatalog)
@@ -69,7 +70,7 @@ public class StudentImpl implements StudentInterface {
 			if(course != null)
 			{
 				i++;
-				selectedCourses.add(make_pair(courseId,type));
+				selectedCourses.add(new Pair<>(courseId,type));
 			}
 			else
 			{
@@ -130,14 +131,14 @@ public class StudentImpl implements StudentInterface {
 	}
 
 	@Override
-	public void makePaymentSuccessful(String studentId, String referenceNo) {
-		studentDaoImplementation.makePaymentSuccessful(studentId,referenceNo);
+	public void makePaymentSuccessful(String studentId) {
+		paymentDaoImpl.makePayment(studentId);
 
 	}
 
 	@Override
-	public String getPaymentStatus(String studentId) {
-		String paymentStatus = studentDaoImplementation.getPaymentStatus(studentId);
+	public boolean getPaymentStatus(String studentId) {
+		boolean paymentStatus = paymentDaoImpl.getPaymentStatus(studentId);
 		return paymentStatus;
 	}
 

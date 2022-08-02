@@ -53,14 +53,14 @@ public void addStudentdata(Student student);
 		 * @param StudentId
 		 * @param referenceNo
 	*/
-	 public void makePaymentSuccessful(String studentId, String referenceNo);
+	 public void makePaymentSuccessful(String studentId);
 	 
 	 /**
 		 * Method to get the payment status
 		 * @param StudentId
 		 * @param payment status 
 	 */
-	 public String getPaymentStatus(String studentId);
+	 public boolean getPaymentStatus(String studentId);
 	 
 	 /**
 		 * Method for checking student registered or not
