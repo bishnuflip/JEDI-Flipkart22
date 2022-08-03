@@ -63,7 +63,7 @@ public class CRSStudentMenu {
 				try {
 					studentImpl.displayGradeCard(studentId);
 				} catch (GradeCardNotPublishedException e) {
-					System.out.println("Grade card not published.");
+					System.out.println(e.getMessage());
 				}
 				break;
 			}
