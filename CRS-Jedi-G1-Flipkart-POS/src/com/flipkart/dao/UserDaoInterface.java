@@ -10,7 +10,7 @@ public interface UserDaoInterface {
      * @param password
      * @return User object containing userId and type
      */
-    int login(String userId, String password);
+    User login(String userId, String password);
 
     /**
      * method to get last generated index

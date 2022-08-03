@@ -11,11 +11,12 @@ import java.sql.SQLException;
 public class UserDaoImpl implements UserDaoInterface{
 
     @Override
-    public int login(String userId, String password) throws  RuntimeException{
+    public User login(String userId, String password) throws  RuntimeException{
+        User usr = new User();
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "Select password, type from user where userId = ?";
+        String sql = "Select name, password, type from user where userId = ?";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, userId);
@@ -25,19 +26,20 @@ public class UserDaoImpl implements UserDaoInterface{
                 System.out.println("User does not exist");
             }
             String pwdHash = "";
-            int type = -1;
             while(rs.next()) {
+                usr.setName(rs.getString("name"));
                 pwdHash = rs.getString("password");
-                type = rs.getInt("type");
+                usr.setRole(rs.getInt("type"));
             }
             if(!pwdHash.equals(password)) {
                 stmt.close();
                 util.closeConnection();
-                return -1;
+                usr.setRole(-1);
+                return usr;
             }
             stmt.close();
             util.closeConnection();
-            return type;
+            return usr;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

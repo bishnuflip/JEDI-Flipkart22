@@ -44,7 +44,8 @@ public class CRSApplication {
 					  		String userId = scanner.next();
 					  		System.out.print("Enter Password: ");
 					  		String password = scanner.next();
-					  		int role = auth.authorize(userId, password);
+					  		User loginUser = auth.authorize(userId, password);
+							  int role = loginUser.getRole();
  					  		if(role == -1) {
 					  			System.out.println("Invalid user id or password. Please try again");
 					  			break;

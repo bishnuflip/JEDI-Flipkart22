@@ -31,10 +31,10 @@ public class AuthorizationService {
 //		
 //	}
 	
-	public int authorize(String username, String password)
+	public User authorize(String username, String password)
 	{
 		UserDaoImpl auth = new UserDaoImpl();
-		int role = auth.login(username, password);
+		User role = auth.login(username, password);
 		return role;
 	}
 	 
