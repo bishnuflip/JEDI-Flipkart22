@@ -49,14 +49,16 @@ public class NotificationDaoImpl implements NotificationInterface{
             }
             notif.setNotifId(notifID);
             notif.setUserId(userID);
-            notif.setMessage(rs.getString("message"));
-            notif.setTitle(rs.getString("title"));
+            while(rs.next()) {
+                notif.setMessage(rs.getString("message"));
+                notif.setTitle(rs.getString("title"));
+            }
             notif.setStatus(0);
-            sql = "UPDATE NOTIFICATION SET VALUE status = 0 WHERE userId = ? and notifId = ?";
+            sql = "UPDATE NOTIFICATION SET status = 0 WHERE userId = ? and notifId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, userID);
             stmt.setInt(2, notifID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);

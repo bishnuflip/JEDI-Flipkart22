@@ -130,6 +130,10 @@ public class StudentImpl implements StudentInterface {
 		if(!user.checkIDAvailable(studentId)) {
 			System.out.println("Invalid Student ID. Payment failed");
 		}
+		if(paymentDaoImpl.getPaymentStatus(studentId)) {
+			System.out.println("Fees already paid");
+			return;
+		}
 		paymentDaoImpl.makePayment(studentId);
 		System.out.println("Payment Successful.");
 		Notification notif = new Notification();

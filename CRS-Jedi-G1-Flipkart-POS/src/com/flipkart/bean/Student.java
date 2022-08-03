@@ -89,6 +89,6 @@ public class Student extends User{
 
 	@Override
 	public String toString() {
-		return "Name: " + this.getName() + "\nEmail: " + this.getEmail()+ "\nContact: " + this.getContactNo() + "\nStudent Id: " + this.getStudentId() + "\nSemester: " + this.getSemester();
+		return this.getName() + "\t" + this.getEmail()+ "\t" + this.getContactNo() + "\t" + this.getStudentId() + "\t" + this.getSemester() + "\n";
 	}
 }

@@ -16,7 +16,7 @@ public class ProfDaoImpl implements ProfDaoInterface {
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT * FROM COURSE WHERE profId = NULL";
+        String sql = "SELECT * FROM COURSE WHERE profId is NULL";
         try {
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
@@ -46,9 +46,10 @@ public class ProfDaoImpl implements ProfDaoInterface {
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT studentId, name, email, semester FROM (SELECT * FROM USER, ALLOTEDCOURSE WHERE userId = studentId AND courseId = ?)";
+        String sql = "SELECT studentId, name, email, semester FROM (SELECT * FROM USER, ALLOTEDCOURSE WHERE userId = studentId AND courseId = ?) AS STUDLIST";
         try {
             stmt = conn.prepareStatement(sql);
+            stmt.setString(1, courseID);
             ResultSet rs = stmt.executeQuery();
             while(rs.next()) {
                 Student stud = new Student();
@@ -71,8 +72,13 @@ public class ProfDaoImpl implements ProfDaoInterface {
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "INSERT INTO PROFCHOICE ('profId', 'courseId') VALUES (?, ?)";
+        String sql = "INSERT INTO PROFCHOICE (profId, courseId) VALUES (?, ?)";
         try {
+            stmt = conn.prepareStatement(sql);
+            stmt.setString(1, profID);
+            stmt.setString(2, courseID);
+            stmt.executeUpdate();
+            sql = "UPDATE COURSE SET profId = ? WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
             stmt.setString(2, courseID);
@@ -143,7 +149,7 @@ public class ProfDaoImpl implements ProfDaoInterface {
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT * FROM COURSE WHERE courseId IN (SELECT courseId FROM PROFCHOICE WHERE profId = ?)";
+        String sql = "SELECT * FROM COURSE WHERE courseId IN (SELECT courseId FROM PROFCHOICE WHERE profId = ?) AS CHOICES";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
