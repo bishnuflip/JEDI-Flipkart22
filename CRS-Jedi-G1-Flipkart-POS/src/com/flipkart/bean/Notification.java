@@ -8,7 +8,7 @@ public class Notification {
 	private int notifId;
 	private String title;
 	private String message;
-	private Date date;
+	//private Date date;
 	private int status;  //indicates read/unread status
 	private int type;   //indicates payment or general or issue
 
@@ -80,17 +80,17 @@ public class Notification {
 	 * returns the notification date
 	 * @return
 	 */
-	public Date getDate() {
+	/*public Date getDate() {
 		return date;
-	}
+	}*/
 
 	/**
 	 * sets the notification date
 	 * @param date
 	 */
-	public void setDate(Date date) {
+	/*public void setDate(Date date) {
 		this.date = date;
-	}
+	}*/
 
 	/**
 	 * returns read status of notification
@@ -126,7 +126,7 @@ public class Notification {
 
 	@Override
 	public String toString() {
-		String str = "Title: " + this.getTitle() + "\nDate: " + this.getDate() + "\nMessage: " + this.getMessage();
+		String str = "Title: " + this.getTitle() + "\nMessage: " + this.getMessage();
 		return str ;
 	}
 }
