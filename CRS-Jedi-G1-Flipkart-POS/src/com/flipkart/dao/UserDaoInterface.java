@@ -21,13 +21,24 @@ public interface UserDaoInterface {
     public int getLastIndex(int role);
 
     /**
-     * method to check
+     * method to check is ID exists in database
      * @param userID
      * @return
      */
     public boolean checkIDAvailable(String userID);
 
+    /**
+     * method to check if emailID exists in database
+     * @param email
+     * @return
+     */
     public boolean checkEmailAvailable(String email);
 
+    /**
+     * method to change password of the given user
+     * @param userID
+     * @param password
+     * @return
+     */
     public boolean changePassword(String userID, String password);
 }

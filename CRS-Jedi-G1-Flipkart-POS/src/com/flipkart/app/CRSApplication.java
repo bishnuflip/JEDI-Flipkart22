@@ -56,24 +56,24 @@ public class CRSApplication {
 					  			break;
 					  		}
  					  		//login successful
- 					  		System.out.println("Welcome "+loginUser.getUsername()+ LocalDateTime.now());
+ 					  		System.out.println("Welcome "+loginUser.getName() + "\t"+ LocalDateTime.now());
 					        switch(role) {
 								case 1:
-									System.out.println("Welcome Admin!");
+									//System.out.println("Welcome Admin!");
 									//display admin menu with appropriate options
 									CRSAdminMenu adminMenu = new CRSAdminMenu();
 									adminMenu.adminMenuMain();
 									break;
 
 								case 2:
-									System.out.println("Welcome Student");
+									//System.out.println("Welcome Student");
 									//display student relevant options
 									CRSStudentMenu studentMenu = new CRSStudentMenu();
 									studentMenu.studentMenuMain(userId);
 									break;
 
 								case 3:
-									System.out.println("Welcome Professor");
+									//System.out.println("Welcome Professor");
 									//display professor relevant options
 									CRSProfessorMenu professorMenu = new CRSProfessorMenu();
 									professorMenu.professorMenuMain(userId);

@@ -62,6 +62,9 @@ public class UserDaoImpl implements UserDaoInterface{
         else if(role == 3) {
             column = "professor";
         }
+        else if(role == 4) {
+            column = "notification";
+        }
         else {
             return -1;
         }

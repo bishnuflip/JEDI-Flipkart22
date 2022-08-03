@@ -1,6 +1,6 @@
 package com.flipkart.service;
 
-import java.util.Date;
+import java.sql.Date;
 
 import com.flipkart.app.CRSApplication;
 import com.flipkart.bean.Notification;

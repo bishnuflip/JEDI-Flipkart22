@@ -45,7 +45,7 @@ public class CRSStudentMenu {
 				ArrayList<Course> courseList = studentImpl.viewStudentCourseChoice(studentId);
 				float amt = 0;
 				for(Course crs: courseList) {
-					System.out.println(crs.getCourseId() + "\t" + crs.getName() + "\t" + crs.getProfessorId() + "\t" + crs.getCourseFee());
+					System.out.println(crs.getCourseId() + "\t\t" + crs.getName() + "\t\t" + crs.getProfessorId() + "\t\t" + crs.getCourseFee());
 					amt += crs.getCourseFee();
 				}
 				System.out.println("The total fees to be paid is: " + amt);
@@ -72,7 +72,13 @@ public class CRSStudentMenu {
 				break;
 			}
 			case 6:{
-				studentImpl.viewNotifications(studentId);
+				studentImpl.viewNotificationList(studentId);
+				System.out.println("Enter the notif ID to view (Enter -1 to cancel): ");
+				int notifID = scanner.nextInt();
+				if(notifID == -1) {
+					break;
+				}
+				studentImpl.viewNotification(studentId, notifID);
 				break;
 			}
 			}

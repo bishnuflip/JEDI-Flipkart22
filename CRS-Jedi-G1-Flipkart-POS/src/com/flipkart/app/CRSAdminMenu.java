@@ -24,7 +24,7 @@ public class CRSAdminMenu {
 
 	public void adminMenuMain() {
 		// TODO Auto-generated method stub
-		System.out.println("\033[0;1m" + "\n-----------------------!!Welcome Admin!!----------------------\n" + "\033[0m");
+		//System.out.println("\033[0;1m" + "\n-----------------------!!Welcome Admin!!----------------------\n" + "\033[0m");
 		System.out.println("Choose an option:-");
 		System.out.println("--------------------------------------------------------------");
 		System.out.println("\t1 : Add Course\n\t2 : Delete Course\n\t3 : Update Course\n\t4 : Activate Grade Card");
@@ -47,7 +47,7 @@ public class CRSAdminMenu {
 					newCourse.setCourseId(scanner.next());
 
 					System.out.print("Enter course name: ");
-					newCourse.setName(scanner.next());
+					newCourse.setName(scanner.nextLine());
 					scanner.next();
 
 					System.out.print("Enter Course Fee: ");
@@ -58,7 +58,6 @@ public class CRSAdminMenu {
 
 					System.out.print("Enter semester: ");
 					newCourse.setSemester(scanner.nextInt());
-					scanner.next();
 
 					admin.addCourse(newCourse);
 					break;

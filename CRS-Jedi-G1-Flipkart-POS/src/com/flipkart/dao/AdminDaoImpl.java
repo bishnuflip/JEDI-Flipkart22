@@ -48,7 +48,8 @@ public class AdminDaoImpl implements  AdminDaoInterface{
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
-            stmt.executeUpdate();
+            int res = stmt.executeUpdate();
+            if(res == 0) throw new CourseNotFoundException();
             sql = "DELETE FROM STUDENTCHOICE WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
@@ -56,9 +57,7 @@ public class AdminDaoImpl implements  AdminDaoInterface{
             sql = "DELETE FROM PROFCHOICE WHERE courseId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, courseID);
-            int res = stmt.executeUpdate();
-            if(res == 0) throw new CourseNotFoundException();
-            
+            stmt.executeUpdate();
         } 
         catch(CourseNotFoundException ce) {
         	throw ce;

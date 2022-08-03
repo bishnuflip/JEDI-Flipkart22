@@ -3,7 +3,7 @@
  */
 package com.flipkart.bean;
 
-import java.util.Date;
+import java.sql.Date;
 
 /**
  * @author jain.harshil

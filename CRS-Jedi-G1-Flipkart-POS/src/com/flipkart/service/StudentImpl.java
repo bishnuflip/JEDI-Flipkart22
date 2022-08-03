@@ -1,9 +1,8 @@
 package com.flipkart.service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Map;
-import java.util.Scanner;
+import java.time.LocalDate;
+import java.util.*;
+import java.sql.Date;
 
 import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.*;
@@ -86,10 +85,10 @@ public class StudentImpl implements StudentInterface {
 	@Override
 	public void displayCourseCatalog() {
 		ArrayList<Course> clist = catalogDaoImplementation.viewCatalog(2);
-		System.out.println("Course Id\tCourse Name\tProfessor Id\tCourse Fee");
+		System.out.println("Course Id\t\tCourse Name\t\t\tProfessor Id\t\tCourse Fee");
 		 for(Course c : clist)
 		 {
-			 System.out.println(c.getCourseId()+"\t\t"+c.getName()+"\t\t"+c.getProfessorId()+"\t\t"+c.getCourseFee());
+			 System.out.println(c.getCourseId()+"\t\t\t"+c.getName()+"\t\t\t\t"+c.getProfessorId()+"\t\t\t"+c.getCourseFee());
 		 }
 
 	}
@@ -127,8 +126,21 @@ public class StudentImpl implements StudentInterface {
 
 	@Override
 	public void makePaymentSuccessful(String studentId) {
+		UserDaoInterface user = new UserDaoImpl();
+		if(!user.checkIDAvailable(studentId)) {
+			System.out.println("Invalid Student ID. Payment failed");
+		}
 		paymentDaoImpl.makePayment(studentId);
-
+		System.out.println("Payment Successful.");
+		Notification notif = new Notification();
+		notif.setNotifId(Integer.parseInt(UtilityService.getId(4)));
+		notif.setType(1);
+		java.util.Date d1 = new java.util.Date();
+		Date d = new java.sql.Date(d1.getTime());
+		notif.setDate(d);
+		notif.setTitle("Payment Successful");
+		notif.setMessage("The payment for the student is successful");
+		notificationDaoImplementation.writeNotification(notif);
 	}
 
 	@Override
@@ -157,11 +169,17 @@ public class StudentImpl implements StudentInterface {
 		return false;
 	}
 
-	public  void viewNotifications(String userId) {
+	public  void viewNotificationList(String userId) {
 		ArrayList<Notification> notifications =  notificationDaoImplementation.viewNotificationList(userId);
+		System.out.println("Date\tTitle\t\tNotificationID\tRead Status");
 		for(Notification n: notifications) {
-			System.out.println(n.toString());
+			System.out.println(n.getDate() + "\t" + n.getTitle() + "\t" + n.getNotifId() + "\t" + n.getStatus());
 		}
+	}
+
+	public void viewNotification(String userID, int notifID) {
+		Notification notif = notificationDaoImplementation.viewNotification(userID, notifID);
+		System.out.println(notif.toString());
 	}
 
 	public void registerNewStudent()

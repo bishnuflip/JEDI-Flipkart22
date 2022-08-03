@@ -74,7 +74,9 @@ public interface StudentInterface {
 
 	public boolean isGradeCardActivated(String studentId);
 
-	public  void viewNotifications(String userId);
+	public  void viewNotificationList(String userId);
+
+	public void viewNotification(String userId, int notifID);
 
 	public void registerNewStudent();
 

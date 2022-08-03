@@ -21,7 +21,7 @@ public class NotificationDaoImpl implements NotificationInterface{
             stmt.setDate(4, (Date) notif.getDate());
             stmt.setInt(5, notif.getStatus());
             stmt.setInt(6, notif.getType());
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -84,7 +84,6 @@ public class NotificationDaoImpl implements NotificationInterface{
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, userID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
             if(rs == null) {
                 return null;
             }
@@ -103,10 +102,11 @@ public class NotificationDaoImpl implements NotificationInterface{
             throw new RuntimeException(e);
         }
         try {
+            stmt.close();
             util.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        return null;
+        return notifList;
     }
 }

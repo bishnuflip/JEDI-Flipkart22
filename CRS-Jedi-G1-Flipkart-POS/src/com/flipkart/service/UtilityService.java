@@ -27,6 +27,9 @@ public class UtilityService {
 		else if(role == 3) {
 			autoIds = "P_";
 		}
+		else {
+			return Integer.toString(num);
+		}
 		autoIds = autoIds + Integer.toString(num);
 		return autoIds;
 	}
