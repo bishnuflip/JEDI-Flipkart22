@@ -1,6 +1,7 @@
 
 package com.flipkart.app;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.Scanner;
 
@@ -19,6 +20,10 @@ public class CRSApplication {
 			throw new RuntimeException(e);
 		}
 	}
+    /**
+     * Start of the application
+     * @throws GradeCardNotPublishedException
+     */
 
 	public static void startApplication() throws GradeCardNotPublishedException {
 
@@ -45,11 +50,13 @@ public class CRSApplication {
 					  		System.out.print("Enter Password: ");
 					  		String password = scanner.next();
 					  		User loginUser = auth.authorize(userId, password);
-							  int role = loginUser.getRole();
+							int role = loginUser.getRole();
  					  		if(role == -1) {
 					  			System.out.println("Invalid user id or password. Please try again");
 					  			break;
 					  		}
+ 					  		//login successful
+ 					  		System.out.println("Welcome "+loginUser.getUsername()+ LocalDateTime.now());
 					        switch(role) {
 								case 1:
 									System.out.println("Welcome Admin!");
