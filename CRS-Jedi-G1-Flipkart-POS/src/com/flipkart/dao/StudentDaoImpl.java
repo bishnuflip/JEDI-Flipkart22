@@ -238,25 +238,26 @@ public class StudentDaoImpl implements StudentDaoInterafce{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "SELECT gradeCardStatus FROM STUDENT WHERE studId = ?";
+        String sql = "SELECT gradeCardStatus FROM STUDENT WHERE studentId = ?";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, studID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
-            util.closeConnection();
             if(rs == null) {
                 return -1;
             }
-            if(rs.getInt("gradeCardStatus") == 0) {
-                return 0;
-            }
-            else {
-                return 1;
+            while(rs.next()) {
+                if(rs.getInt("gradeCardStatus") == 0) {
+                    return 0;
+                }
+                else {
+                    return 1;
+                }
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        return 0;
     }
 
     @Override

@@ -20,8 +20,6 @@ public class ProfDaoImpl implements ProfDaoInterface {
         try {
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
-            util.closeConnection();
             while(rs.next()) {
                 Course crs = new Course();
                 crs.setCourseId(rs.getString("courseId"));
@@ -33,6 +31,9 @@ public class ProfDaoImpl implements ProfDaoInterface {
                 crs.setStrength(rs.getInt("strength"));
                 courseList.add(crs);
             }
+
+            stmt.close();
+            util.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -49,8 +50,6 @@ public class ProfDaoImpl implements ProfDaoInterface {
         try {
             stmt = conn.prepareStatement(sql);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
-            util.closeConnection();
             while(rs.next()) {
                 Student stud = new Student();
                 stud.setStudentId(rs.getString("studentId"));
@@ -59,6 +58,8 @@ public class ProfDaoImpl implements ProfDaoInterface {
                 stud.setSemester(rs.getInt("semester"));
                 studList.add(stud);
             }
+            stmt.close();
+            util.closeConnection();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -75,7 +76,7 @@ public class ProfDaoImpl implements ProfDaoInterface {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
             stmt.setString(2, courseID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -98,7 +99,7 @@ public class ProfDaoImpl implements ProfDaoInterface {
             stmt.setFloat(1, grade);
             stmt.setString(2, studID);
             stmt.setString(3, courseID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -121,12 +122,16 @@ public class ProfDaoImpl implements ProfDaoInterface {
             stmt.setString(1, studID);
             stmt.setString(2, courseID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
-            util.closeConnection();
             if(rs == null) {
                 return -101;
             }
-            return rs.getFloat("grade");
+            float res = 0;
+            while(rs.next()) {
+                res = rs.getFloat("grade");
+            }
+            stmt.close();
+            util.closeConnection();
+            return res;
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -143,7 +148,6 @@ public class ProfDaoImpl implements ProfDaoInterface {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
             while(rs.next()) {
                 Course crs = new Course();
                 crs.setCourseId(rs.getString("courseId"));
@@ -155,6 +159,7 @@ public class ProfDaoImpl implements ProfDaoInterface {
                 crs.setStrength(rs.getInt("strength"));
                 courseList.add(crs);
             }
+            stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
@@ -176,7 +181,7 @@ public class ProfDaoImpl implements ProfDaoInterface {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
             stmt.setString(2, courseID);
-            stmt.executeQuery();
+            stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -200,7 +205,6 @@ public class ProfDaoImpl implements ProfDaoInterface {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, profID);
             ResultSet rs = stmt.executeQuery();
-            stmt.close();
             while(rs.next()) {
                 Course crs = new Course();
                 crs.setCourseId(rs.getString("courseId"));
@@ -212,6 +216,7 @@ public class ProfDaoImpl implements ProfDaoInterface {
                 crs.setStrength(rs.getInt("strength"));
                 courseList.add(crs);
             }
+            stmt.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

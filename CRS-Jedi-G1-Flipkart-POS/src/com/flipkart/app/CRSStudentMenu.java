@@ -16,7 +16,7 @@ import java.util.Scanner;
  */
 public class CRSStudentMenu {
 
-	public void studentMenuMain(String studentId) throws GradeCardNotPublishedException {
+	public void studentMenuMain(String studentId) {
 		// TODO Auto-generated method stub
 		System.out.println("Choose an option:-");
 		System.out.println("----------------------------------------------------------");
@@ -60,7 +60,11 @@ public class CRSStudentMenu {
 				break;
 			}
 			case 4:{
-				studentImpl.displayGradeCard(studentId);
+				try {
+					studentImpl.displayGradeCard(studentId);
+				} catch (GradeCardNotPublishedException e) {
+					System.out.println("Grade card not published.");
+				}
 				break;
 			}
 			case 5:{
