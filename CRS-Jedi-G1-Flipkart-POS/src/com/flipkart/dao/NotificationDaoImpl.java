@@ -12,15 +12,14 @@ public class NotificationDaoImpl implements NotificationInterface{
         DBUtils util = new DBUtils();
         Connection conn = util.connect();
         PreparedStatement stmt = null;
-        String sql = "INSERT INTO NOTIFICATION ('userId', 'title', 'message', 'date', 'status', 'type') VALUES (?, ?, ?, ?, ?, ?)";
+        String sql = "INSERT INTO NOTIFICATION (userId, title, message, status, notifId) VALUES (?, ?, ?, ?, ?)";
         try {
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, notif.getUserId());
             stmt.setString(2, notif.getTitle());
             stmt.setString(3, notif.getMessage());
-            stmt.setDate(4, (Date) notif.getDate());
-            stmt.setInt(5, notif.getStatus());
-            stmt.setInt(6, notif.getType());
+            stmt.setInt(4, notif.getStatus());
+            stmt.setInt(5, notif.getNotifId());
             stmt.executeUpdate();
             stmt.close();
         } catch (SQLException e) {
@@ -50,12 +49,9 @@ public class NotificationDaoImpl implements NotificationInterface{
             }
             notif.setNotifId(notifID);
             notif.setUserId(userID);
-            notif.setDate(rs.getDate("date"));
             notif.setMessage(rs.getString("message"));
             notif.setTitle(rs.getString("title"));
-            notif.setType(rs.getInt("type"));
             notif.setStatus(0);
-            stmt.close();
             sql = "UPDATE NOTIFICATION SET VALUE status = 0 WHERE userId = ? and notifId = ?";
             stmt = conn.prepareStatement(sql);
             stmt.setString(1, userID);
@@ -91,10 +87,8 @@ public class NotificationDaoImpl implements NotificationInterface{
                 Notification notif = new Notification();
                 notif.setNotifId(rs.getInt("notifId"));
                 notif.setUserId(userID);
-                notif.setDate(rs.getDate("date"));
                 notif.setMessage(rs.getString("message"));
                 notif.setTitle(rs.getString("title"));
-                notif.setType(rs.getInt("type"));
                 notif.setStatus(rs.getInt("status"));
                 notifList.add(notif);
             }

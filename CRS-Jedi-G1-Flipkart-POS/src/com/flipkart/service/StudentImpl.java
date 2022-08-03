@@ -135,9 +135,10 @@ public class StudentImpl implements StudentInterface {
 		Notification notif = new Notification();
 		notif.setNotifId(Integer.parseInt(UtilityService.getId(4)));
 		notif.setType(1);
-		java.util.Date d1 = new java.util.Date();
-		Date d = new java.sql.Date(d1.getTime());
-		notif.setDate(d);
+		notif.setUserId(studentId);
+		//java.util.Date d1 = new java.util.Date();
+		//Date d = new java.sql.Date(d1.getTime());
+		//notif.setDate(d);
 		notif.setTitle("Payment Successful");
 		notif.setMessage("The payment for the student is successful");
 		notificationDaoImplementation.writeNotification(notif);
@@ -171,9 +172,9 @@ public class StudentImpl implements StudentInterface {
 
 	public  void viewNotificationList(String userId) {
 		ArrayList<Notification> notifications =  notificationDaoImplementation.viewNotificationList(userId);
-		System.out.println("Date\tTitle\t\tNotificationID\tRead Status");
+		System.out.println("Title\t\tNotificationID\tRead Status");
 		for(Notification n: notifications) {
-			System.out.println(n.getDate() + "\t" + n.getTitle() + "\t" + n.getNotifId() + "\t" + n.getStatus());
+			System.out.println(n.getTitle() + "\t" + n.getNotifId() + "\t" + n.getStatus());
 		}
 	}
 
