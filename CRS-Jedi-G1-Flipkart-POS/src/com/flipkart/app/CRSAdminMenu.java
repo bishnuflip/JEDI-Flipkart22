@@ -6,6 +6,8 @@ package com.flipkart.app;
 import java.util.ArrayList;
 import java.util.Scanner;
 
+import com.flipkart.Exceptions.CourseNotFoundException;
+import com.flipkart.Exceptions.ProfessorNotFoundException;
 import com.flipkart.bean.Course;
 import com.flipkart.bean.Professor;
 import com.flipkart.bean.Student;
@@ -64,7 +66,11 @@ public class CRSAdminMenu {
 				}
 				case 2: {
 					System.out.print("Enter CourseId: ");
-					admin.removeCourse(scanner.next());
+					try {
+						admin.removeCourse(scanner.next());
+					} catch (CourseNotFoundException e) {
+						System.out.println(e);
+					}
 					break;
 				}
 				case 3: {
@@ -109,7 +115,11 @@ public class CRSAdminMenu {
 				case 6: {
 					System.out.print("Enter ProfessorId: ");
 					String professorId = scanner.next();
-					admin.removeProfessor(professorId);
+					try {
+						admin.removeProfessor(professorId);
+					} catch (ProfessorNotFoundException e) {
+						System.out.println(e.getMessage());
+					}
 					break;
 				}
 				case 7: {

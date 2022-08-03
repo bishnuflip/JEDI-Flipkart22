@@ -3,6 +3,7 @@
  */
 package com.flipkart.app;
 
+import com.flipkart.Exceptions.GradeCardNotPublishedException;
 import com.flipkart.bean.Course;
 import com.flipkart.service.StudentImpl;
 
@@ -48,7 +49,11 @@ public class CRSStudentMenu {
 				break;
 			}
 			case 4:{
-				studentImpl.displayGradeCard(studentId);
+				try {
+					studentImpl.displayGradeCard(studentId);
+				} catch (GradeCardNotPublishedException e) {
+					System.out.println(e.getMessage());
+				}
 				break;
 			}
 			case 5:{
