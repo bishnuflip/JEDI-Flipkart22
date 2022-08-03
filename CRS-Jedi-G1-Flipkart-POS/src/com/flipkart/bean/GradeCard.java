@@ -75,6 +75,11 @@ public class GradeCard {
 	 * @return the sgpa
 	 */
 	public float getSgpa() {
+		sgpa = 0;
+		for(Grade grade: courseGrades) {
+			sgpa += grade.getGrade();
+		}
+		sgpa = sgpa / 40 * 10;
 		return sgpa;
 	}
 

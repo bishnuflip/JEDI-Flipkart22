@@ -71,6 +71,11 @@ public class AdminImpl implements AdminInterface {
 	@Override
 	public void approveStudentRegistration(String studentId) {
 		AdminDaoInterface admindaoimpl = new AdminDaoImpl();
+		PaymentDaoInterface pay = new PaymentDaoImpl();
+		if(!pay.getPaymentStatus(studentId)) {
+			System.out.println("Payment not complete. Aborting.");
+			return;
+		}
 		try {
 			admindaoimpl.approveStudent(studentId);
 		} catch (UserNotApprovedException e) {
@@ -116,7 +121,7 @@ public class AdminImpl implements AdminInterface {
 	@Override
 	public void allocateStudentCourse(String studentID) {
 		PaymentDaoInterface payment = new PaymentDaoImpl();
-		if(payment.getPaymentStatus(studentID)) {
+		if(!payment.getPaymentStatus(studentID)) {
 			System.out.println("Payment for courses pending. Allocation failed");
 			return;
 		}
